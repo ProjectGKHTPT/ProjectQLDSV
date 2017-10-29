@@ -80,10 +80,21 @@
 <!-- Custom Js -->
 <script src="{{asset('node_modules/adminbsb-materialdesign/js/admin.js')}}"></script>
 <script src="{{asset('node_modules/adminbsb-materialdesign/js/pages/index.js')}}"></script>
-
+<!-- cookie -->
+<script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
 <!-- Demo Js -->
 <script src="{{asset('node_modules/adminbsb-materialdesign/js/demo.js')}}"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+<script>
+    $(document).ready(function(){
+        var $body = $('body');
+       if(getCookie('skins')){
+           $body.removeClass('theme-red');
+           $body.addClass('theme-' + getCookie('skins'));
+           $('.right-sidebar .demo-choose-skin li').removeClass('active');
+       }
+    });
+</script>
 @yield('footer_js')
 </body>
 
