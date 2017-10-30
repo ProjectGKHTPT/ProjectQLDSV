@@ -28,14 +28,14 @@
 
 <p><H4>3. KẾ HOẠCH</H4><br/>
   
-<p><H4>4. CÔNG CỤ HỖ TRỢ</br>  
+<p><H4>4. CÔNG CỤ HỖ TRỢ</H4></br>  
   -Framework laravel</br> 
   -Bootstrap</br> 
   -Flyway</br> 
   -github</br> 
   -xampp</br> 
   ....
-<p><H4>5. KẾT LUẬN</br> 
+<p><H4>5. KẾT LUẬN</H4></br> 
   - Biết sử dụng kiến thức " Hệ Thống Phân Tán " vào thiết kế web.</br> 
   - Thành thạo kĩ năng làm việc nhóm cũng như project nhóm.</br> 
   - Biết sử dụng một số Framwork cũng như các tính năng quản lý CSDL của Flyway.</br> 
