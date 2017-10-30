@@ -1,4 +1,4 @@
-<img src="https://github.com/ProjectGKHTPT/ProjectQLDSV/tree/master/image/00.png" /><br/>
+<img src="https://github.com/ProjectGKHTPT/ProjectQLDSV/blob/master/image/00.png" /><br/>
 <center><H2>GIỚI THIỆU DỰ ÁN WEBSITE QUẢN LÝ ĐIỂM SINH VIÊN</H2></center>
 <hr/></br>
 <p>Tài liệu này được xây dựng bởi các thành viên:</br>
@@ -17,7 +17,7 @@
 
 <p><H4>1.GIỚI THIỆU</H4><br/>
 -Mô tả chức năng của trang web<br/>
-<img src="https://github.com/ProjectGKHTPT/ProjectQLDSV/tree/master/image/01.png" /><br/>
+<img src="https://github.com/ProjectGKHTPT/ProjectQLDSV/blob/master/image/01.png" /><br/>
   
 <p><H4>2.MỤC TIÊU</H4><br/>
   - Trang Web thực hiện đầy đủ chức năng yêu cầu của Project môn học " Hệ Thống Phân Tán ".<br/>
