@@ -16,4 +16,8 @@ Route::group(['prefix' => 'admin'], function () {
     Route::get('login',['as'=>'admin.getLogin','uses'=>'UserController@getLogin']);
     Route::post('login',['as'=>'admin.postLogin','uses'=>'UserController@postLogin']);
     Route::get('logout',['as'=>'admin.getLogout','uses'=>'UserController@getLogout']);
+
+    Route::get('register',['as'=>'admin.getRegister','uses'=>'UserController@getRegister']);
+    Route::post('register',['as'=>'admin.postRegister','uses'=>'UserController@postRegister']);
+    Route::post('duplicateuser',['as'=>'admin.postDuplicateuser','uses'=>'UserController@postDuplicateuser']);
 });

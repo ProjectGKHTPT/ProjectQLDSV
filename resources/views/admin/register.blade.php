@@ -1,10 +1,11 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 
 <head>
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-    <title>Login | Admin</title>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <title>Register | Admin</title>
     <!-- Favicon-->
     <link rel="icon" href="{{asset('node_modules/adminbsb-materialdesign/favicon.ico')}}" type="image/x-icon">
 
@@ -26,23 +27,31 @@
     <link href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet">
 </head>
 
-<body class="login-page">
-<div class="login-box">
+<body class="signup-page">
+<div class="signup-box">
     <div class="logo">
         <a href="javascript:void(0);">Admin</a>
         <small>Quản Lý Điểm Sinh Viên </small>
     </div>
     <div class="card">
         <div class="body">
-            <form id="frm_sign_in" method="POST" action="{{route('admin.postLogin')}}">
+            <form id="frm_sign_up" method="POST" action="{{route('admin.postRegister')}}" data-duplicateuser="{{route('admin.postDuplicateuser')}}">
                 {{ csrf_field() }}
-                <div class="msg">Đăng Nhập</div>
+                <div class="msg">Đăng Ký</div>
                 <div class="input-group">
                         <span class="input-group-addon">
                             <i class="material-icons">person</i>
                         </span>
                     <div class="form-line">
-                        <input type="text" class="form-control" name="username" placeholder="Username" required>
+                        <input type="text" class="form-control" name="username" id="username" placeholder="Username" required autofocus>
+                    </div>
+                </div>
+                <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="material-icons">email</i>
+                        </span>
+                    <div class="form-line">
+                        <input type="email" class="form-control" name="email" id="email" placeholder="Email Address" required>
                     </div>
                 </div>
                 <div class="input-group">
@@ -50,25 +59,27 @@
                             <i class="material-icons">lock</i>
                         </span>
                     <div class="form-line">
-                        <input type="password" class="form-control" name="password" placeholder="Password" required>
+                        <input type="password" class="form-control" id="password" name="password" minlength="6" placeholder="Password" required>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-xs-8 p-t-5">
-                        <input type="checkbox" name="rememberme" id="rememberme" class="filled-in chk-col-pink">
-                        <label for="rememberme">Remember Me</label>
-                    </div>
-                    <div class="col-xs-4">
-                        <button class="btn btn-block bg-pink waves-effect" type="button" id="btn_sign_in">SIGN IN</button>
+                <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="material-icons">lock</i>
+                        </span>
+                    <div class="form-line">
+                        <input type="password" class="form-control" name="confirm" minlength="6" placeholder="Confirm Password" required>
                     </div>
                 </div>
-                <div class="row">
-                    <a href="{{route('admin.getRegister')}}" style="size: 7px;float: right">Đăng Ký Tài Khoản Sinh Viên</a>
+                <button class="btn btn-block btn-lg bg-pink waves-effect" type="button" id="btn_sign_up">Register</button>
+
+                <div class="m-t-25 m-b--5 align-center">
+                    <a href="{{route('admin.getLogin')}}">Bạn Đã Có Tài Khoản Sinh Viên?</a>
                 </div>
             </form>
         </div>
     </div>
 </div>
+
 <!-- Jquery Core Js -->
 <script src="{{asset('node_modules/adminbsb-materialdesign/plugins/jquery/jquery.min.js')}}"></script>
 
@@ -83,13 +94,8 @@
 
 <!-- Custom Js -->
 <script src="{{asset('node_modules/adminbsb-materialdesign/js/admin.js')}}"></script>
-<script src="{{asset('node_modules/adminbsb-materialdesign/js/pages/examples/sign-in.js')}}"></script>
+<script src="{{asset('node_modules/adminbsb-materialdesign/js/pages/examples/sign-up.js')}}"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
-    @if(session('error')=="1")
-        <script> toastr.error('Tài Khoản Hoặc Mật Khẩu Của Bạn Không Đúng. Vui Lòng Kiểm Tra Lại!', 'Thông Báo!',{"closeButton": true, "progressBar": true});</script>
-    @elseif(session('error')=="0")
-        <script> toastr.success('Đăng Ký Thành Công Vui Lòng Đăng nhập', 'Thông Báo!',{"closeButton": true, "progressBar": true});</script>
-    @endif
 </body>
 
 </html>
