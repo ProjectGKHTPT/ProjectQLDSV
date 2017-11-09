@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-
 <head>
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
@@ -9,8 +8,8 @@
     <link rel="icon" href="{{asset('node_modules/adminbsb-materialdesign/favicon.ico')}}" type="image/x-icon">
 
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin,cyrillic-ext" rel="stylesheet" type="text/css">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css">
+    <link href="{{asset('node_modules/adminbsb-materialdesign/css/fonts.css')}}" rel="stylesheet">
+    <link href="{{asset('node_modules/adminbsb-materialdesign/css/icon.css')}}" rel="stylesheet">
 
     <!-- Bootstrap Core Css -->
     <link href="{{asset('node_modules/adminbsb-materialdesign/plugins/bootstrap/css/bootstrap.css')}}" rel="stylesheet">
@@ -23,7 +22,7 @@
 
     <!-- Custom Css -->
     <link href="{{asset('node_modules/adminbsb-materialdesign/css/style.css')}}" rel="stylesheet">
-    <link href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet">
+    <link href="{{asset('node_modules/adminbsb-materialdesign/css/toastr.min.css')}}" rel="stylesheet">
 </head>
 
 <body class="login-page">
@@ -84,7 +83,7 @@
 <!-- Custom Js -->
 <script src="{{asset('node_modules/adminbsb-materialdesign/js/admin.js')}}"></script>
 <script src="{{asset('node_modules/adminbsb-materialdesign/js/pages/examples/sign-in.js')}}"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+<script src="{{asset('node_modules/adminbsb-materialdesign/js/toastr.min.js')}}"></script>
     @if(session('error')=="1")
         <script> toastr.error('Tài Khoản Hoặc Mật Khẩu Của Bạn Không Đúng. Vui Lòng Kiểm Tra Lại!', 'Thông Báo!',{"closeButton": true, "progressBar": true});</script>
     @elseif(session('error')=="0")

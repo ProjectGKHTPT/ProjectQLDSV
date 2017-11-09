@@ -10,8 +10,8 @@
     <link rel="icon" href="favicon.ico" type="image/x-icon">
 
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin,cyrillic-ext" rel="stylesheet" type="text/css">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css">
+    <link href="{{asset('node_modules/adminbsb-materialdesign/css/fonts.css')}}" rel="stylesheet">
+    <link href="{{asset('node_modules/adminbsb-materialdesign/css/icon.css')}}" rel="stylesheet">
 
     <!-- Bootstrap Core Css -->
     <link href="{{asset('node_modules/adminbsb-materialdesign/plugins/bootstrap/css/bootstrap.css')}}" rel="stylesheet">
@@ -30,18 +30,11 @@
 
     <!-- AdminBSB Themes. You can choose a theme from css/themes instead of get all themes -->
     <link href="{{asset('node_modules/adminbsb-materialdesign/css/themes/all-themes.css')}}" rel="stylesheet" />
-    <link href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet">
+    <link href="{{asset('node_modules/adminbsb-materialdesign/css/toastr.min.css')}}" rel="stylesheet">
     @yield('header_css')
 </head>
 
-<body class="theme-red">
-@include('layouts/loader')
-<!-- Overlay For Sidebars -->
-<div class="overlay"></div>
-<!-- #END# Overlay For Sidebars -->
-@include('layouts/search-top-header')
-@include('layouts/header')
-@include('layouts/menu')
+<body class="theme-red @yield('body_class')">
 @yield('body_content')
 <!-- Jquery Core Js -->
 <script src="{{asset('node_modules/adminbsb-materialdesign/plugins/jquery/jquery.min.js')}}"></script>
@@ -82,10 +75,10 @@
 <script src="{{asset('node_modules/adminbsb-materialdesign/js/admin.js')}}"></script>
 <script src="{{asset('node_modules/adminbsb-materialdesign/js/pages/index.js')}}"></script>
 <!-- cookie -->
-<script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
+<script src="{{asset('node_modules/adminbsb-materialdesign/js/js.cookie.min.js')}}"></script>
 <!-- Demo Js -->
 <script src="{{asset('node_modules/adminbsb-materialdesign/js/demo.js')}}"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+<script src="{{asset('node_modules/adminbsb-materialdesign/js/toastr.min.js')}}"></script>
 <script>
     $(document).ready(function(){
         var $body = $('body');
@@ -97,5 +90,4 @@
 </script>
 @yield('footer_js')
 </body>
-
 </html>

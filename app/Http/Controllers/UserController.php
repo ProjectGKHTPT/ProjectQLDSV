@@ -41,7 +41,8 @@ class UserController extends Controller
         $table->level=0;
         $table->picture='user.png';
         $table->save();
-        return redirect('admin/login')->with('error','0');;
+//        return redirect('admin/lockscreen');
+        return view('admin/lockscreen',['datas'=>$data]);
 //        try{
 //            return Response::json([
 //                'error' => 0,
@@ -63,5 +64,24 @@ class UserController extends Controller
         }else{
             echo json_encode(false);
         }
+    }
+//    public function getLockscreen(){
+//            return view('admin/lockscreen');
+//
+//    }
+    public function postLockscreen(Request $request){
+        if(Auth::attempt(['name'=>$request->username,'password'=>$request->password]))
+        {
+            return Response::json([
+                'error' => 0,
+                'href'=>route('index')
+            ]);
+        }else{
+            return Response::json([
+                'error' => 1,
+                'message' => 'Mật khẩu không đúng. Vui lòng Kiểm tra lại'
+            ]);
+        }
+
     }
 }

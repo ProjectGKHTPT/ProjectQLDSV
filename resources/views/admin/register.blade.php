@@ -10,8 +10,8 @@
     <link rel="icon" href="{{asset('node_modules/adminbsb-materialdesign/favicon.ico')}}" type="image/x-icon">
 
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin,cyrillic-ext" rel="stylesheet" type="text/css">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css">
+    <link href="{{asset('node_modules/adminbsb-materialdesign/css/fonts.css')}}" rel="stylesheet" type="text/css">
+    <link href="{{asset('node_modules/adminbsb-materialdesign/css/icon.css')}}" rel="stylesheet" type="text/css">
 
     <!-- Bootstrap Core Css -->
     <link href="{{asset('node_modules/adminbsb-materialdesign/plugins/bootstrap/css/bootstrap.css')}}" rel="stylesheet">
@@ -24,7 +24,7 @@
 
     <!-- Custom Css -->
     <link href="{{asset('node_modules/adminbsb-materialdesign/css/style.css')}}" rel="stylesheet">
-    <link href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet">
+    <link href="{{asset('node_modules/adminbsb-materialdesign/css/toastr.min.css')}}" rel="stylesheet">
 </head>
 
 <body class="signup-page">
@@ -95,7 +95,7 @@
 <!-- Custom Js -->
 <script src="{{asset('node_modules/adminbsb-materialdesign/js/admin.js')}}"></script>
 <script src="{{asset('node_modules/adminbsb-materialdesign/js/pages/examples/sign-up.js')}}"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+<script src="{{asset('node_modules/adminbsb-materialdesign/js/toastr.min.js')}}"></script>
 </body>
 
 </html>

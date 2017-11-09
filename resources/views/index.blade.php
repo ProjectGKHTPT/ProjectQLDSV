@@ -1,7 +1,7 @@
-@extends('layouts/master')
+@extends('layouts/pages')
 @section('title')
     Quản lý Điểm Sinh Viên
 @endsection
-@section('body_content')
+@section('pages_body_content')
     @include('layouts/content')
 @endsection
