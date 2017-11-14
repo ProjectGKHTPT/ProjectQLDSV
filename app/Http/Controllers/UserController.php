@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 
 namespace App\Http\Controllers;
 
@@ -26,7 +26,7 @@ class UserController extends Controller
         }else{
             return Response::json([
                 'error' => 1,
-                'message' => 'Tài khoản mật khẩu không đúng. Vui lòng kiểm tra lại'
+                'message' => 'TĂ i khoáº£n máº­t kháº©u khĂ´ng Ä‘Ăºng. Vui lĂ²ng kiá»ƒm tra láº¡i'
             ]);
         }
     }
@@ -51,7 +51,7 @@ class UserController extends Controller
         try{
             return Response::json([
                 'error' => 0,
-                'message' => 'Đăng Ký thành công.'
+                'message' => 'ÄÄƒng KĂ½ thĂ nh cĂ´ng.'
             ]);
         }catch (QueryException $e){
             return Response::json([
@@ -78,6 +78,30 @@ class UserController extends Controller
 
     public function datajson(Request $request){
         $where = [];
+        if (isset($request->search['custom']['typesearch'])){
+            if(($request->search['custom']['typesearch'])=="0"){
+                if($request->search['custom']['name']){
+                    $where[]= ['name','like', '%' . trim($request->search['custom']['name']) . '%'];
+                }
+                if($request->search['custom']['email']){
+                    $where[]= ['email','like', '%' . trim($request->search['custom']['email']) . '%'];
+                }
+                if($request->search['custom']['level']){
+                    $where[]= ['level','like', '%' . trim($request->search['custom']['level']) . '%'];
+                }
+            }
+            if (($request->search['custom']['typesearch'])=="1"){
+                if($request->search['custom']['name']){
+                    $where[]= ['name',trim($request->search['custom']['name'])];
+                }
+                if($request->search['custom']['email']){
+                    $where[]= ['email',trim($request->search['custom']['email'])];
+                }
+                if($request->search['custom']['level']){
+                    $where[]= ['level',trim($request->search['custom']['level'])];
+                }
+            }
+        }
 
         DB::statement(DB::raw('set @rownum=0'));
         $listuser=User::select([
@@ -93,7 +117,7 @@ class UserController extends Controller
                 if($data->level==0){
                     return "Admin";
                 }else{
-                    return "Thành Viên";
+                    return "ThĂ nh ViĂªn";
                 }
             })
             ->addColumn('picture', function ($data) {
@@ -121,6 +145,31 @@ class UserController extends Controller
     }
 
     /**
+     * Add User
+     */
+    public function adduser(Request $request){
+        $table= new User;
+        $data=$request->only(['name','email','password','level']);
+        $table->name=$data['name'];
+        $table->email=$data['email'];
+        $table->password=bcrypt($data['password']);
+        $table->level=$data['level'];
+        $table->picture='user.png';
+        $table->save();
+//        return redirect('admin/lockscreen');
+        try{
+            return Response::json([
+                'error' => 0,
+                'message' => 'ÄÄƒng KĂ½ thĂ nh cĂ´ng.'
+            ]);
+        }catch (QueryException $e){
+            return Response::json([
+                'error' => 1,
+                'message' =>$e
+            ]);
+        }
+    }
+    /**
      * Edit item id
      */
     public function postEdit(Request $request,$id){
@@ -132,7 +181,7 @@ class UserController extends Controller
         try{
             return Response::json([
                 'error' => 0,
-                'message' => 'Sửa Thành Công '.$request->name
+                'message' => 'Sá»­a ThĂ nh CĂ´ng '.$request->name
             ]);
         }catch (QueryException $e){
             return Response::json([
@@ -147,7 +196,7 @@ class UserController extends Controller
         return Response::json($model);
     }
     /**
-     * Xóa 1 mục
+     * XĂ³a 1 má»¥c
      */
     public function destroy($id)
     {
@@ -155,7 +204,7 @@ class UserController extends Controller
             User::destroy($id);
             return Response::json([
                 'error' => 0,
-                'message' => 'Xóa thành công '
+                'message' => 'XĂ³a thĂ nh cĂ´ng '
             ]);
         } catch (QueryException $e) {
             return Response::json([
