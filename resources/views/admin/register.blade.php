@@ -1,101 +1,70 @@
-﻿<!DOCTYPE html>
-<html>
+@extends('adminlte::master')
+@section('title', 'Register')
+@section('body_class','register-page')
+@section('adminlte_css')
+    <!-- iCheck -->
+    <link rel="stylesheet" href="{{ asset('vendor/adminlte/plugins/iCheck/square/blue.css')}}">
+@stop
+@section('body')
+    <div class="register-box">
+        <div class="register-logo">
+            <a href="../../index2.html"><b>Admin</b></a>
+        </div>
 
-<head>
-    <meta charset="UTF-8">
-    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>Register | Admin</title>
-    <!-- Favicon-->
-    <link rel="icon" href="{{asset('node_modules/adminbsb-materialdesign/favicon.ico')}}" type="image/x-icon">
+        <div class="register-box-body">
+            <p class="login-box-msg">Đăng Ký</p>
 
-    <!-- Google Fonts -->
-    <link href="{{asset('node_modules/adminbsb-materialdesign/css/fonts.css')}}" rel="stylesheet" type="text/css">
-    <link href="{{asset('node_modules/adminbsb-materialdesign/css/icon.css')}}" rel="stylesheet" type="text/css">
-
-    <!-- Bootstrap Core Css -->
-    <link href="{{asset('node_modules/adminbsb-materialdesign/plugins/bootstrap/css/bootstrap.css')}}" rel="stylesheet">
-
-    <!-- Waves Effect Css -->
-    <link href="{{asset('node_modules/adminbsb-materialdesign/plugins/node-waves/waves.css')}}" rel="stylesheet" />
-
-    <!-- Animation Css -->
-    <link href="{{asset('node_modules/adminbsb-materialdesign/plugins/animate-css/animate.css')}}" rel="stylesheet" />
-
-    <!-- Custom Css -->
-    <link href="{{asset('node_modules/adminbsb-materialdesign/css/style.css')}}" rel="stylesheet">
-    <link href="{{asset('node_modules/adminbsb-materialdesign/css/toastr.min.css')}}" rel="stylesheet">
-</head>
-
-<body class="signup-page">
-<div class="signup-box">
-    <div class="logo">
-        <a href="javascript:void(0);">Admin</a>
-        <small>Quản Lý Điểm Sinh Viên </small>
-    </div>
-    <div class="card">
-        <div class="body">
-            <form id="frm_sign_up" method="POST" action="{{route('admin.postRegister')}}" data-duplicateuser="{{route('admin.postDuplicateuser')}}">
+            <form action="{{route('admin.postRegister')}}" data-duplicateemail="{{route('admin.postDuplicateemail')}}" method="post" id="frm-register">
                 {{ csrf_field() }}
-                <div class="msg">Đăng Ký</div>
-                <div class="input-group">
-                        <span class="input-group-addon">
-                            <i class="material-icons">person</i>
-                        </span>
-                    <div class="form-line">
-                        <input type="text" class="form-control" name="username" id="username" placeholder="Username" required autofocus>
-                    </div>
+                <div class="form-group has-feedback">
+                    <span class="glyphicon glyphicon-user form-control-feedback"></span>
+                    <input type="text" name="name" class="form-control" placeholder="Tên Đầy Đủ" required>
                 </div>
-                <div class="input-group">
-                        <span class="input-group-addon">
-                            <i class="material-icons">email</i>
-                        </span>
-                    <div class="form-line">
-                        <input type="email" class="form-control" name="email" id="email" placeholder="Email Address" required>
-                    </div>
+                <div class="form-group has-feedback">
+                    <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+                    <input type="email" name="email" class="form-control" placeholder="Email" id="email" required>
                 </div>
-                <div class="input-group">
-                        <span class="input-group-addon">
-                            <i class="material-icons">lock</i>
-                        </span>
-                    <div class="form-line">
-                        <input type="password" class="form-control" id="password" name="password" minlength="6" placeholder="Password" required>
-                    </div>
+                <div class="form-group has-feedback">
+                    <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+                    <input type="password" name="password" class="form-control" placeholder="Mật Khẩu" id="password" minlength="6" required>
                 </div>
-                <div class="input-group">
-                        <span class="input-group-addon">
-                            <i class="material-icons">lock</i>
-                        </span>
-                    <div class="form-line">
-                        <input type="password" class="form-control" name="confirm" minlength="6" placeholder="Confirm Password" required>
-                    </div>
+                <div class="form-group has-feedback">
+                    <span class="glyphicon glyphicon-log-in form-control-feedback"></span>
+                    <input type="password" name="Repassword" class="form-control" placeholder="Nhập Lại Mật Khẩu" minlength="6" required>
                 </div>
-                <button class="btn btn-block btn-lg bg-pink waves-effect" type="button" id="btn_sign_up">Register</button>
-
-                <div class="m-t-25 m-b--5 align-center">
-                    <a href="{{route('admin.getLogin')}}">Bạn Đã Có Tài Khoản Sinh Viên?</a>
+                <div class="row">
+                    <div class="col-xs-8">
+                        {{--<div class="checkbox icheck">--}}
+                            {{--<label>--}}
+                                {{--<input type="checkbox"> I agree to the <a href="#">terms</a>--}}
+                            {{--</label>--}}
+                        {{--</div>--}}
+                    </div>
+                    <!-- /.col -->
+                    <div class="col-xs-4">
+                        <button type="button" class="btn btn-primary btn-block btn-flat" id="btn-register">Đăng Ký</button>
+                    </div>
+                    <!-- /.col -->
                 </div>
             </form>
+            <a href="{{route('admin.getLogin')}}" class="text-center">Tôi đã có một thành viên</a>
         </div>
+        <!-- /.form-box -->
     </div>
-</div>
-
-<!-- Jquery Core Js -->
-<script src="{{asset('node_modules/adminbsb-materialdesign/plugins/jquery/jquery.min.js')}}"></script>
-
-<!-- Bootstrap Core Js -->
-<script src="{{asset('node_modules/adminbsb-materialdesign/plugins/bootstrap/js/bootstrap.js')}}"></script>
-
-<!-- Waves Effect Plugin Js -->
-<script src="{{asset('node_modules/adminbsb-materialdesign/plugins/node-waves/waves.js')}}"></script>
-
-<!-- Validation Plugin Js -->
-<script src="{{asset('node_modules/adminbsb-materialdesign/plugins/jquery-validation/jquery.validate.js')}}"></script>
-
-<!-- Custom Js -->
-<script src="{{asset('node_modules/adminbsb-materialdesign/js/admin.js')}}"></script>
-<script src="{{asset('node_modules/adminbsb-materialdesign/js/pages/examples/sign-up.js')}}"></script>
-<script src="{{asset('node_modules/adminbsb-materialdesign/js/toastr.min.js')}}"></script>
-</body>
-
-</html>
+    <!-- /.register-box -->
+@stop
+@section('adminlte_js')
+    <!-- iCheck -->
+    <script src="{{ asset('vendor/adminlte/plugins/iCheck/icheck.min.js')}}"></script>
+    <!-- Login -->
+    <script src="{{ asset('js/register.js')}}"></script>
+    <script>
+        $(function () {
+            $('input').iCheck({
+                checkboxClass: 'icheckbox_square-blue',
+                radioClass: 'iradio_square-blue',
+                increaseArea: '20%' // optional
+            });
+        });
+    </script>
+@stop
