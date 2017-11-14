@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 
 namespace App\Http\Controllers;
 
@@ -26,7 +26,7 @@ class UserController extends Controller
         }else{
             return Response::json([
                 'error' => 1,
-                'message' => 'TĂ i khoáº£n máº­t kháº©u khĂ´ng Ä‘Ăºng. Vui lĂ²ng kiá»ƒm tra láº¡i'
+                'message' => 'Tài khoản mật khẩu không đúng. Vui lòng kiểm tra lại'
             ]);
         }
     }
@@ -51,7 +51,7 @@ class UserController extends Controller
         try{
             return Response::json([
                 'error' => 0,
-                'message' => 'ÄÄƒng KĂ½ thĂ nh cĂ´ng.'
+                'message' => 'Đăng Ký thành công.'
             ]);
         }catch (QueryException $e){
             return Response::json([
@@ -117,7 +117,7 @@ class UserController extends Controller
                 if($data->level==0){
                     return "Admin";
                 }else{
-                    return "ThĂ nh ViĂªn";
+                    return "Thành Viên";
                 }
             })
             ->addColumn('picture', function ($data) {
@@ -160,7 +160,7 @@ class UserController extends Controller
         try{
             return Response::json([
                 'error' => 0,
-                'message' => 'ÄÄƒng KĂ½ thĂ nh cĂ´ng.'
+                'message' => 'Đăng Ký thành công.'
             ]);
         }catch (QueryException $e){
             return Response::json([
@@ -181,7 +181,7 @@ class UserController extends Controller
         try{
             return Response::json([
                 'error' => 0,
-                'message' => 'Sá»­a ThĂ nh CĂ´ng '.$request->name
+                'message' => 'Sửa Thành Công '.$request->name
             ]);
         }catch (QueryException $e){
             return Response::json([
@@ -196,7 +196,7 @@ class UserController extends Controller
         return Response::json($model);
     }
     /**
-     * XĂ³a 1 má»¥c
+     * Xóa 1 mục
      */
     public function destroy($id)
     {
@@ -204,7 +204,7 @@ class UserController extends Controller
             User::destroy($id);
             return Response::json([
                 'error' => 0,
-                'message' => 'XĂ³a thĂ nh cĂ´ng '
+                'message' => 'Xóa thành công '
             ]);
         } catch (QueryException $e) {
             return Response::json([

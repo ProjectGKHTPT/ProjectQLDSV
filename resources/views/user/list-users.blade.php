@@ -1,42 +1,7 @@
-﻿@extends('adminlte::page')
+@extends('adminlte::page')
 @section('title','List-User')
 @section('content_header')
     <div class="row">
-        <form method="post" id="search-form">
-        <div class="col-md-8">
-            <div class="btn btn-flat" style="margin: 0;padding: 0 0 0 12px;">
-                <select name="type-search" id="type_search" class="form-control">
-                    <option value="0">Gần Đúng</option>
-                    <option value="1">Chính Xác</option>
-                </select>
-                <div class="btn-group wrap-click-drop">
-                    <a class="btn bg-teal btn-block btn-flat dropdown-toggle" data-toggle="dropdown"> Tìm kiếm
-                        <i class="fa fa-angle-down"></i>
-                    </a>
-                    <ul class="dropdown-menu pull-left" style="padding: 10px;width: 300px;">
-                        <li>
-                            <div class="form-group has-feedback">
-                                <span class="fa fa-search form-control-feedback"></span>
-                                <input type="text" name="search-name" class="form-control" placeholder="Tên Đầy Đủ" id="search-name" >
-                            </div>
-                        </li>
-                        <li>
-                            <div class="form-group has-feedback">
-                                <span class="fa fa-search form-control-feedback"></span>
-                                <input type="text" name="search-email" class="form-control" placeholder="Email" id="search-email">
-                            </div>
-                        </li>
-                        <li>
-                            <div class="form-group has-feedback">
-                                <span class="fa fa-search form-control-feedback"></span>
-                                <input type="text" name="search-level" class="form-control" placeholder="Quyền truy Cập" id="search-level">
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        </form>
         <div class="col-md-4">
             <ol class="breadcrumb" style="padding: 16px 0px 0px 150px;margin: 0;background-color: transparent;border-radius: 0;">
                 <li><a href="#"><i class="fa fa-user"></i> Người sử dụng</a></li>
