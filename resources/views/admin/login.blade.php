@@ -39,8 +39,8 @@
                     <!-- /.col -->
                 </div>
             </form>
-            <a href="#">I forgot my password</a><br>
-            <a href="{{route('admin.getRegister')}}" class="text-center">Register a new membership</a>
+            <a href="{{route('admin.getForgotPassword')}}">Quyên mật khẩu</a><br>
+            <a href="{{route('admin.getRegister')}}" class="text-center">Đăng Ký Tài Khoản</a>
 
         </div>
         <!-- /.login-box-body -->

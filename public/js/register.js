@@ -34,20 +34,28 @@ $(function () {
         }
     }
     });
-    $("#frm-register").on('submit',function (e) {
-        if($(this).valid()) {
-            var data = $(this).serializeArray();
-            var url = $(this).attr('action');
-            $.post(url, data, function (resp) {
-                if(resp.error==0){
-                    window.location.href="http://qldsv.dev";
-                }
-                if(resp.error==1)
-                {
-                    toastr.error('Lỗi hệ thống.Vui lòng liên hệ quản trị viên', 'Thông Báo!', {closeButton:true});
-                }
-            }, 'json');
-            return false;
-        }
-    });
+    // $("#frm-register").on('submit',function (e) {
+    //     if($(this).valid()) {
+    //         var data = $(this).serializeArray();
+    //         var url = $(this).attr('action');
+    //         $.post(url, data, function (resp) {
+    //             if(resp.error==0){
+    //                 var data=resp.data;
+    //                 // window.location.href=resp.href;
+    //                 $.ajax({
+    //                     url: resp.href,
+    //                     type:"post",
+    //                     data: data
+    //                 }).done(function() {
+    //                     // $( this ).addClass( "done" );
+    //                 });
+    //             }
+    //             if(resp.error==1)
+    //             {
+    //                 toastr.error('Lỗi hệ thống.Vui lòng liên hệ quản trị viên', 'Thông Báo!', {closeButton:true});
+    //             }
+    //         }, 'json');
+    //         return false;
+    //     }
+    // });
 });

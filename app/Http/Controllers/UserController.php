@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Mail;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Database\QueryException;
 use Yajra\DataTables\Facades\DataTables;
@@ -12,6 +13,7 @@ use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
+    var $mail="";
     public function getLogin(){
 
         return view('admin.login');
@@ -47,12 +49,16 @@ class UserController extends Controller
         $table->level=1;
         $table->picture='user.png';
         $table->save();
-//        return redirect('admin/lockscreen');
+
+//        return Redirect()->route('admin.getLockscreen',['data',$data]);
+        //        return redirect('admin/lockscreen');
         try{
-            return Response::json([
-                'error' => 0,
-                'message' => 'Đăng Ký thành công.'
-            ]);
+            return redirect()->route('admin.getLockscreen')->with('data',$data);
+//            return Response::json([
+//                'error' => 0,
+//                'href' => route('admin.getLockscreen'),
+//                'data' =>$data
+//            ]);
         }catch (QueryException $e){
             return Response::json([
                 'error' => 1,
@@ -72,6 +78,72 @@ class UserController extends Controller
         }
     }
 
+    public function getLockscreen(){
+        return view('admin.lockscreen');
+    }
+    public function postLockscreen(Request $request){
+        if(Auth::attempt(['email'=>$request->email,'password'=>$request->password]))
+        {
+            return Response::json([
+                'error' => 0,
+                'href' => route('index')
+            ]);
+        }else{
+            return Response::json([
+                'error' => 1,
+                'message' => 'Mật khẩu không đúng. Vui lòng kiểm tra lại'
+            ]);
+        }
+    }
+
+    public function getForgotPassword(){
+        return view('admin.forgot-password');
+    }
+    public function postForgotPassword(Request $request){
+        $this->mail=$request->email;
+        $user = User::where([['email', $request->email]])->firstOrFail();
+        $count = count($user);
+        if($count != 0){
+            $random=rand(100000,999999);
+            while (1){
+                $rd_count = User::where([['checkcodeemail', $random]])->count();
+                if($rd_count==0){
+                    break;
+                }else{
+                    $random=rand(100000,999999);
+                }
+            }
+            $user->checkcodeemail = $random;
+            $user->save();
+            if($user->save()) {
+                $data=['name'=>$user->name,'code'=>$random];
+                Mail::send('admin.forgotsendmail',$data, function ($message) use($user) {
+
+                    $message->to($user->email,$user->name)->subject('Mã Xác Nhận');
+                });
+//                Mail::send('admin.forgotsendmail', ['a'=>'a'], function($message) {
+//                    $message->from('test@example.com', 'a');
+//                    $message->to('lamnguyen260895@gmail.com', 'me')->subject('Welcome!'); });
+            }
+            return Response::json([
+                'error' => 0,
+                'email' => $request->email
+            ]);
+        }else{
+            return Response::json([
+                'error' => 1,
+                'message' => 'Email không đúng. Vui lòng kiểm tra lại'
+            ]);
+        }
+    }
+
+    /**
+     * @param Request $request
+     * @return mixed
+     */
+    public function postCheckCodeEmail(Request $request){
+        $user = User::where([['email', $request->email]])->firstOrFail();
+    }
     public function getListUser(){
         return view('user/list-users');
     }

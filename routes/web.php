@@ -23,6 +23,13 @@ Route::group(['prefix' => 'admin'], function () {
     Route::post('register',['as'=>'admin.postRegister','uses'=>'UserController@postRegister']);
     Route::post('duplicateemail',['as'=>'admin.postDuplicateemail','uses'=>'UserController@postDuplicateemail']);
 
+    Route::get('lockscreen',['as'=>'admin.getLockscreen','uses'=>'UserController@getLockscreen']);
+    Route::post('lockscreen',['as'=>'admin.postLockscreen','uses'=>'UserController@postLockscreen']);
+
+    Route::get('forgot-password',['as'=>'admin.getForgotPassword','uses'=>'UserController@getForgotPassword']);
+    Route::post('forgot-password',['as'=>'admin.postForgotPassword','uses'=>'UserController@postForgotPassword']);
+    Route::post('check-code-email',['as'=>'admin.postCheckCodeEmail','uses'=>'UserController@postCheckCodeEmail']);
+
 //    Route::get('lockscreen',['as'=>'admin.getLockscreen','uses'=>'UserController@getLockscreen']);
     Route::post('lockscreen',['as'=>'admin.postLockscreen','uses'=>'UserController@postLockscreen']);
 });
