@@ -6,7 +6,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title"><b>Thêm người sử dụng</b></h4>
+                <h4 class="modal-title"><b>Sửa người sử dụng</b></h4>
             </div>
             <form method="post" action="" data-duplicateemail="{{route('admin.postDuplicateemail')}}" id="frm_edit_user">
             <div class="col-md-12">

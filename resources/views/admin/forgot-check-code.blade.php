@@ -13,32 +13,28 @@
         </div>
         <!-- START LOCK SCREEN ITEM -->
         <div class="forgot-password-item">
-
+            <div>
+                <span>Vui lòng truy cập email : <b>{{$email}}</b> để lấy mã xác nhận :</span>
+            </div>
             <!-- forgot-password credentials (contains the form) -->
-            <form class="forgot-password-credentials" action="{{route('admin.postForgotPassword')}}" method="post" id="frm-forgot-password">
+            <form class="forgot-password-credentials" action="{{route('admin.postCheckCodeEmail')}}" method="post" id="frm-code-email">
                 {{ csrf_field() }}
-                <div class="input-group">
+                <input type="hidden" name="email" value="{{$email}}">
+                <div class="input-group" style="width: 160px;margin: auto">
                     <!-- Loader -->
-                    <div class="spinner spinner-email" style="display: none">
+                    <div class="spinner spinner-code-email" style="display: none">
                         <div class="rect1"></div>
                         <div class="rect2"></div>
                         <div class="rect3"></div>
                         <div class="rect4"></div>
                         <div class="rect5"></div>
                     </div>
-                    <input type="email" name="email" class="form-control" placeholder="Email của bạn" id="email" required>
+                    <input type="text" name="codeemail" class="form-control" placeholder="Mã Xác Nhận" id="code-email" required>
                     <div class="input-group-btn">
-                        <button type="button" class="btn btn-flat" id="btn-forgot-password"><i class="fa fa-arrow-right text-muted"></i></button>
+                        <button type="button" class="btn btn-flat" id="btn-code-email"><i class="fa fa-arrow-right text-muted"></i></button>
                     </div>
                 </div>
             </form>
-        </div>
-        <!-- /.forgot-password-item -->
-        <div class="help-block text-center">
-            Nhập Email của bạn
-        </div>
-        <div class="text-center">
-            <a href="{{route('admin.getLogin')}}">Hoặc đăng nhập bằng một người dùng khác</a>
         </div>
     </div>
     <!-- /.center -->
@@ -48,7 +44,7 @@
     <script src="{{ asset('js/forgot-password.js')}}"></script>
     <script>
         @if(Session('error')==1)
-        toastr.error('Email không đúng vui lòng kiểm tra lại', 'Thông Báo!', {closeButton:true});
+        toastr.error('Mã xác nhận không đúng. Vui lòng kiểm tra lại !', 'Thông Báo!', {closeButton:true});
         @endif
     </script>
 @stop

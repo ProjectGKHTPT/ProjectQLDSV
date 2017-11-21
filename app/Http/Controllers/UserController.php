@@ -99,50 +99,50 @@ class UserController extends Controller
     public function getForgotPassword(){
         return view('admin.forgot-password');
     }
-    public function postForgotPassword(Request $request){
-        $this->mail=$request->email;
-        $user = User::where([['email', $request->email]])->firstOrFail();
-        $count = count($user);
-        if($count != 0){
-            $random=rand(100000,999999);
-            while (1){
+    public function postForgotPassword(Request $request)
+    {
+        $count = User::where('email', $request->email)->count();
+        if ($count != 0) {
+            $random = rand(000000, 999999);
+            while (1) {
                 $rd_count = User::where([['checkcodeemail', $random]])->count();
-                if($rd_count==0){
+                if ($rd_count == 0) {
                     break;
-                }else{
-                    $random=rand(100000,999999);
+                } else {
+                    $random = rand(000000, 999999);
                 }
             }
-            $user->checkcodeemail = $random;
-            $user->save();
-            if($user->save()) {
-                $data=['name'=>$user->name,'code'=>$random];
-                Mail::send('admin.forgotsendmail',$data, function ($message) use($user) {
-
-                    $message->to($user->email,$user->name)->subject('Mã Xác Nhận');
+            $user = User::where('email', $request->email)
+                ->update(['checkcodeemail' => $random]);
+            if ($user != 0) {
+                $data = ['code' => $random];
+                Mail::send('admin.forgotsendmail', $data, function ($message) use ($request) {
+                    $message->from('contact@qlsv.com', 'Contact');
+                    $message->to($request->email)->subject('Mã Xác Nhận');
                 });
+                return view('admin.forgot-check-code',['email'=>$request->email]);
 //                Mail::send('admin.forgotsendmail', ['a'=>'a'], function($message) {
 //                    $message->from('test@example.com', 'a');
 //                    $message->to('lamnguyen260895@gmail.com', 'me')->subject('Welcome!'); });
+//                return Response::json([
+//                    'error' => 0,
+//                    'email' => $request->email
+//                ]);
             }
-            return Response::json([
-                'error' => 0,
-                'email' => $request->email
-            ]);
         }else{
-            return Response::json([
-                'error' => 1,
-                'message' => 'Email không đúng. Vui lòng kiểm tra lại'
-            ]);
+            return redirect()->route('admin.getForgotPassword')->with('error', '1');
         }
     }
-
-    /**
-     * @param Request $request
-     * @return mixed
-     */
+    public function getCheckCodeEmail(){
+        return view('admin.forgot-check-code');
+    }
     public function postCheckCodeEmail(Request $request){
-        $user = User::where([['email', $request->email]])->firstOrFail();
+        $count = User::where([['email', $request->email],['checkcodeemail', $request->codeemail]])->count();
+        if($count!=0){
+            return view('admin.forgot-check-code',['email'=>$request->email]);
+        }else{
+            return redirect()->route('admin.getCheckCodeEmail')->with(['error', '1'],['email',$request->email]);
+        }
     }
     public function getListUser(){
         return view('user/list-users');

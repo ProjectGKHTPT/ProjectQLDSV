@@ -28,6 +28,7 @@ Route::group(['prefix' => 'admin'], function () {
 
     Route::get('forgot-password',['as'=>'admin.getForgotPassword','uses'=>'UserController@getForgotPassword']);
     Route::post('forgot-password',['as'=>'admin.postForgotPassword','uses'=>'UserController@postForgotPassword']);
+    Route::get('check-code-email',['as'=>'admin.getCheckCodeEmail','uses'=>'UserController@getCheckCodeEmail']);
     Route::post('check-code-email',['as'=>'admin.postCheckCodeEmail','uses'=>'UserController@postCheckCodeEmail']);
 
 //    Route::get('lockscreen',['as'=>'admin.getLockscreen','uses'=>'UserController@getLockscreen']);

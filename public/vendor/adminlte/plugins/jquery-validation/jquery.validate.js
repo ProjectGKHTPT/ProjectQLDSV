@@ -348,24 +348,24 @@ $.extend( $.validator, {
 		$.extend( $.validator.defaults, settings );
 	},
 
-	messages: {
-		required: "This field is required.",
-		remote: "Please fix this field.",
-		email: "Please enter a valid email address.",
-		url: "Please enter a valid URL.",
-		date: "Please enter a valid date.",
-		dateISO: "Please enter a valid date (ISO).",
-		number: "Please enter a valid number.",
-		digits: "Please enter only digits.",
-		equalTo: "Please enter the same value again.",
-		maxlength: $.validator.format( "Please enter no more than {0} characters." ),
-		minlength: $.validator.format( "Please enter at least {0} characters." ),
-		rangelength: $.validator.format( "Please enter a value between {0} and {1} characters long." ),
-		range: $.validator.format( "Please enter a value between {0} and {1}." ),
-		max: $.validator.format( "Please enter a value less than or equal to {0}." ),
-		min: $.validator.format( "Please enter a value greater than or equal to {0}." ),
-		step: $.validator.format( "Please enter a multiple of {0}." )
-	},
+    messages: {
+        required: "Vui lòng nhập thông tin.",
+        remote: "Tên trường đã tồn tại.",
+        email: "Vui lòng nhập email hợp lệ.",
+        url: "Vui lòng nhập địa chỉ url.",
+        date: "Vui lòng nhập ngày.",
+        dateISO: "Vui lòng nhập ngày hợp lệ (ISO).",
+        number: "Vui lòng nhập số.",
+        digits: "Vui lòng nhập chỉ số.",
+        equalTo: "Vui lòng nhập cùng giá trị một lần nữa.",
+        maxlength: $.validator.format( "Vui lòng nhập không quá {0} ký tự." ),
+        minlength: $.validator.format( "Vui lòng nhập ít nhất {0} ký tự." ),
+        rangelength: $.validator.format( "Vui lòng nhập độ dài giá trị nằm giữa {0} và {1} ký tự." ),
+        range: $.validator.format( "Vui lòng nhập giá trị nằm giữa {0} và {1}." ),
+        max: $.validator.format( "Vui lòng nhập giá trị nhỏ hơn hoặc bằng {0}." ),
+        min: $.validator.format( "Vui lòng nhập giá trị lớn hơn hoặc bằng {0}." ),
+        step: $.validator.format( "Vui lòng nhập một bội số của {0}" )
+    },
 
 	autoCreateRanges: false,
 

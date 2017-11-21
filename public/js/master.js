@@ -24,7 +24,7 @@ $(function () {
         var url = $(this).data('url');
         bootbox.confirm({
             title: "Thông Báo",
-            message: '<img src="image/danger.jpg" width="10%"> Bạn đang chọn hành động xóa. Bạn chắc chắn muốn xóa chứ?',
+            message: '<img src="image/danger.jpg" width="10%"> Bạn đang chọn hành động xóa sẽ ảnh hưởng đến hệ thống. Bạn chắc chắn muốn xóa chứ?',
             buttons: {
                 confirm: {
                     label: 'Có',
