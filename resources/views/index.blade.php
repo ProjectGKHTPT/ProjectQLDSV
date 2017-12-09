@@ -1,12 +1,12 @@
 @extends('adminlte::page')
 
-@section('title', 'Dashboard')
+@section('title', 'Trang chủ')
 
 @section('content_header')
     <h1>Quản Lý Sinh Viên</h1>
 @stop
 @section('content')
-    <p>Welcome to this beautiful admin panel.</p>
+    <p>Xin Chào Các Bạn đã ghé thăm.</p>
 @stop
 
 @section('css')

@@ -30,7 +30,7 @@
                 </div>
                 <div class="form-group has-feedback">
                     <span class="glyphicon glyphicon-log-in form-control-feedback"></span>
-                    <input type="password" name="Repassword" class="form-control" placeholder="Nhập Lại Mật Khẩu" minlength="6" required>
+                    <input type="password" name="repassword" class="form-control" placeholder="Nhập Lại Mật Khẩu" minlength="6" required>
                 </div>
                 <div class="row">
                     <div class="col-xs-8">

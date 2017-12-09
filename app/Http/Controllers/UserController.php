@@ -158,9 +158,6 @@ class UserController extends Controller
                 if($request->search['custom']['email']){
                     $where[]= ['email','like', '%' . trim($request->search['custom']['email']) . '%'];
                 }
-                if($request->search['custom']['level']){
-                    $where[]= ['level','like', '%' . trim($request->search['custom']['level']) . '%'];
-                }
             }
             if (($request->search['custom']['typesearch'])=="1"){
                 if($request->search['custom']['name']){
@@ -168,9 +165,6 @@ class UserController extends Controller
                 }
                 if($request->search['custom']['email']){
                     $where[]= ['email',trim($request->search['custom']['email'])];
-                }
-                if($request->search['custom']['level']){
-                    $where[]= ['level',trim($request->search['custom']['level'])];
                 }
             }
         }

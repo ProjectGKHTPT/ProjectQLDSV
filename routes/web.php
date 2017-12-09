@@ -38,10 +38,11 @@ Route::group(['middleware' => ['login']], function () {
     Route::get('/',['as'=>'index','uses'=>'PagesController@index']);
 
     Route::get('list-users', ['as' => 'getListUser', 'uses' => 'UserController@getListUser'])->middleware(['can:level']);
-    Route::get('data', ['as' => 'data_json', 'uses' => 'UserController@datajson']);
+
     //add user
     Route::post('add',['as'=>'adduser','uses'=>'UserController@adduser']);
     //edit user
+    Route::get('data', ['as' => 'data_json', 'uses' => 'UserController@datajson']);
     Route::post('edit/{id}', ['as' => 'postEdit', 'uses' => 'UserController@postEdit']);
     Route::get('detail/{id}', ['as' => 'getDetail', 'uses' => 'UserController@detail']);
     //Delete item
@@ -49,4 +50,11 @@ Route::group(['middleware' => ['login']], function () {
 
     Route::get('information-user', ['as' => 'getInformationUser', 'uses' => 'UserController@getInformationUser']);
     Route::post('editinformation', ['as' => 'postInformation', 'uses' => 'UserController@postInformation']);
+
+    Route::group(['prefix' => 'subject'], function () {
+        Route::get('/', ['as' => 'subject.index', 'uses' => 'SubjectController@index']);
+        Route::get('data', ['as' => 'subject.data_json', 'uses' => 'SubjectController@datajson']);
+        //Delete item
+        Route::get('destroy/{id}', ['as' => 'subject.getDestroy', 'uses' => 'SubjectController@destroy']);
+    });
 });

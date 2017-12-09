@@ -49,7 +49,7 @@ $(function () {
                                     console.log(e);
                                 }
                             } else {
-                                toastr.error('Có lỗi xảy ra, vui lòng liên hệ với quản trị viên.', 'ERROR!');
+                                toastr.error('Có lỗi xảy ra, vui lòng liên hệ với quản trị viên.', 'ERROR!', {closeButton: true});
                             }
                         }
                     });//window.location = url;

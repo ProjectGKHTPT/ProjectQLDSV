@@ -12,7 +12,11 @@ $(function () {
     $("#type_search").select2({
         minimumResultsForSearch: -1
     });
-
+    $("#type_search").change(function () {
+       $("#search-name").val("");
+       $("#search-email").val("");
+        datatable.ajax.reload();
+    });
     $('#btn_add_user').on('click', function (e) {
         e.preventDefault();
         $('#frm_add_user').submit();
@@ -41,6 +45,7 @@ $(function () {
                 minlength:6,
             },
             level: {
+             
                 required: true,
             },
         }

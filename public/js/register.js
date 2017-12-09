@@ -32,6 +32,11 @@ $(function () {
             equalTo:"#password",
             minlength:6
         }
+    },
+    messages: {
+        repassword: {
+            equalTo: "Nhập lại mật khẩu không đúng",
+        }
     }
     });
     // $("#frm-register").on('submit',function (e) {

@@ -43,28 +43,28 @@
 @section('content')
     <!-- Main content -->
     <div class="btn-group pull-right">
-        <button type="button" class="btn bg-olive btn-flat margin btn_add_user" data-toggle="modal" data-target="#add_user"><i class="fa fa-plus" aria-hidden="true"></i> Thêm</button>
+        <button type="button" class="btn bg-olive btn-flat margin btn_add_user" data-toggle="modal" data-target="#add_subject"><i class="fa fa-plus" aria-hidden="true"></i> Thêm</button>
+        {{--<a href="{{route('subject.getDestroy')}}">Xóa</a>--}}
     </div>
     <table class="table table-bordered table-striped" id="user-table">
-       <thead>
-       <tr>
-           <th>STT</th>
-           <th>Tên Tài Khoản</th>
-           <th>Tên Email</th>
-           <th>Hình Đại Diện</th>
-           <th>Quyên Truy Cập</th>
-           <th>Hành Động</th>
-       </tr>
-       </thead>
-        </table>
-    @include('user.add')
+        <thead>
+        <tr>
+            <th>STT</th>
+            <th>Ký Hiệu</th>
+            <th>Lớp</th>
+            <th>Khoa</th>
+            <th>Hành Động</th>
+        </tr>
+        </thead>
+    </table>
+    @include('subjects.add')
     @include('user.edit')
 @stop
 @section('js')
     <!-- List user JS -->
-    <script src="{{ asset('js/list-user.js')}}"></script>
+    <script src="{{ asset('js/subject.js')}}"></script>
     <script>
-        var url="{{route('data_json')}}";
+        var url="{{route('subject.data_json')}}";
         $(function() {
             datatable = $('#user-table').DataTable({
 //                processing: true,
@@ -73,37 +73,33 @@
                 searching: false,
                 columnDefs: [
                     {
-                        "targets": 0, // your case first column
+                        "targets": 0,
                         "className": "text-center",
-                        "width": "5%"
+                        'width':'5%'
                     },
                     {
-                        "targets": 3,
-                        "className": "text-center",
-                    },
-                    {
-                        "targets": 5,
+                        "targets": 4,
                         "className": "text-center",
                     }],
 //            stateSave: true,
                 ajax: {
                     url: url,
                     data: function (d) {
-                        d.search.custom = {
-                            name: $('input[name=search-name]').val(),
-                            email: $('input[name=search-email]').val(),
-                            typesearch:$('#type_search').val(),
-
-                        };
+//                        d.search.custom = {
+//                            name: $('input[name=search-name]').val(),
+//                            email: $('input[name=search-email]').val(),
+//                            typesearch:$('#type_search').val(),
+//
+//                        };
                     }
                 },
                 columns: [
                     {data: 'rownum', name: 'rownum'},
-                    {data: 'name', name: 'name'},
-                    {data: 'email', name: 'email'},
-                    {data: 'picture', name: 'picture'},
-                    {data: 'level', name: 'level'},
+                    {data: 'tenlopviettat', name: 'tenlopviettat'},
+                    {data: 'tenlop', name: 'tenlop'},
+                    {data: 'tenkhoa', name: 'tenkhoa'},
                     {data: 'action', name: 'action'},
+
 
 
                 ],
