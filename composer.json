@@ -7,6 +7,7 @@
     "require": {
         "php": ">=7.0.0",
         "almasaeed2010/adminlte": "~2.4",
+        "doctrine/dbal": "^2.6",
         "fideloper/proxy": "~3.3",
         "jeroennoten/laravel-adminlte": "^1.22",
         "laravel/framework": "5.5.*",
