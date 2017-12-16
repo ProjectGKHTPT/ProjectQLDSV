@@ -18,13 +18,31 @@
                             <li>
                                 <div class="form-group has-feedback">
                                     <span class="fa fa-search form-control-feedback"></span>
-                                    <input type="text" name="search-name" class="form-control" placeholder="Tên Đầy Đủ" id="search-name" >
+                                    <input type="text" name="search-lop" class="form-control" placeholder="Mã lớp" id="search-lop">
                                 </div>
                             </li>
                             <li>
                                 <div class="form-group has-feedback">
                                     <span class="fa fa-search form-control-feedback"></span>
-                                    <input type="text" name="search-email" class="form-control" placeholder="Email" id="search-email">
+                                    <input type="text" name="search-masv" class="form-control" placeholder="Mã sinh viên" id="search-masv" >
+                                </div>
+                            </li>
+                            <li>
+                                <div class="form-group has-feedback">
+                                    <span class="fa fa-search form-control-feedback"></span>
+                                    <input type="text" name="search-hosv" class="form-control" placeholder="Họ sinh viên" id="search-hosv" >
+                                </div>
+                            </li>
+                            <li>
+                                <div class="form-group has-feedback">
+                                    <span class="fa fa-search form-control-feedback"></span>
+                                    <input type="text" name="search-tensv" class="form-control" placeholder="Tên sinh viên" id="search-tensv" >
+                                </div>
+                            </li>
+                            <li>
+                                <div class="form-group has-feedback">
+                                    <span class="fa fa-search form-control-feedback"></span>
+                                    <input type="text" name="search-quequan" class="form-control" placeholder="Quê quán" id="search-quequan" >
                                 </div>
                             </li>
                         </ul>
@@ -43,31 +61,37 @@
 @section('content')
     <!-- Main content -->
     <div class="btn-group pull-right">
-        <button type="button" class="btn bg-olive btn-flat margin btn_add_user" data-toggle="modal" data-target="#add_subject"><i class="fa fa-plus" aria-hidden="true"></i> Thêm</button>
+        <button type="button" class="btn bg-olive btn-flat margin btn_add_user" data-toggle="modal" data-target="#add_student"><i class="fa fa-plus" aria-hidden="true"></i> Thêm</button>
         {{--<a href="{{route('subject.getDestroy')}}">Xóa</a>--}}
     </div>
     <table class="table table-bordered table-striped" id="user-table">
         <thead>
         <tr>
             <th>STT</th>
-            <th>Ký Hiệu</th>
+            <th>Mã sinh viên</th>
+            <th>Họ Tên Sinh Viên</th>
+            <th>Giới Tính</th>
+            <th>Ngày Sinh</th>
+            <th>Quê Quán</th>
             <th>Lớp</th>
-            <th>Khoa</th>
             <th>Hành Động</th>
         </tr>
         </thead>
     </table>
-    @include('subjects.add')
+    @include('student.add')
     @include('user.edit')
 @stop
 @section('js')
     <!-- List user JS -->
-    <script src="{{ asset('js/subject.js')}}"></script>
+    <script src="{{ asset('js/student.js')}}"></script>
     <script>
-        var url="{{route('subject.data_json')}}";
+        var url="{{route('student.data_json')}}";
         $(function() {
             datatable = $('#user-table').DataTable({
-//                processing: true,
+                "scrollY": "300px",
+                "scrollCollapse": true,
+                "scrollX": true,
+               processing: true,
                 serverSide: true,
                 autoWidth: false,
                 searching: false,
@@ -78,30 +102,37 @@
                         'width':'5%'
                     },
                     {
-                        "targets": 4,
+                        "targets": 7,
                         "className": "text-center",
                     }],
 //            stateSave: true,
                 ajax: {
                     url: url,
                     data: function (d) {
-//                        d.search.custom = {
-//                            name: $('input[name=search-name]').val(),
-//                            email: $('input[name=search-email]').val(),
-//                            typesearch:$('#type_search').val(),
-//
-//                        };
+                       d.search.custom = {
+                           typesearch:$('#type_search').val(),
+                           lop: $('input[name=search-lop]').val(),
+                           masv: $('input[name=search-masv]').val(),
+                           hosv: $('input[name=search-hosv]').val(),
+                           tensv: $('input[name=search-tensv]').val(),
+                           quequan: $('input[name=search-quequan]').val(),
+
+                       };
                     }
                 },
                 columns: [
                     {data: 'rownum', name: 'rownum'},
-                    {data: 'tenlopviettat', name: 'tenlopviettat'},
-                    {data: 'tenlop', name: 'tenlop'},
-                    {data: 'tenkhoa', name: 'tenkhoa'},
-                    {data: 'action', name: 'action'},
+                    {data: 'masv', name: 'masv'},
+                    {data: 'hotensv', name: 'hotensv'},
+                    {data: 'gioitinhsv', name: 'gioitinhsv'},
+                    {data: 'ngaysinh', name: 'ngaysinh'},
+                    {data: 'quequan', name: 'quequan'},
+                    {data: 'malopsv', name: 'malopsv'},
+                    {data: 'action', name: 'action'}
+                ],
 
-
-
+                buttons: [
+                    'copy', 'excel', 'pdf'
                 ],
                 language: {
                     "lengthMenu": "Hiển thị _MENU_ bản ghi",

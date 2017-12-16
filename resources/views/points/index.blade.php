@@ -68,7 +68,7 @@
     <!-- List user JS -->
     <script src="{{ asset('js/subject.js')}}"></script>
     <script>
-        var url="{{route('subject.data_json')}}";
+        var url="{{route('point.data_json')}}";
         $(function() {
             datatable = $('#user-table').DataTable({
 //                processing: true,

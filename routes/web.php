@@ -57,4 +57,19 @@ Route::group(['middleware' => ['login']], function () {
         //Delete item
         Route::get('destroy/{id}', ['as' => 'subject.getDestroy', 'uses' => 'SubjectController@destroy']);
     });
+    Route::group(['prefix' => 'point'], function () {
+        Route::get('/', ['as' => 'point.index', 'uses' => 'PointController@index']);
+        Route::get('data', ['as' => 'point.data_json', 'uses' => 'PointController@datajson']);
+//        //Delete item
+//        Route::get('destroy/{id}', ['as' => 'subject.getDestroy', 'uses' => 'SubjectController@destroy']);
+    });
+    Route::group(['prefix' => 'student'], function () {
+        Route::get('/', ['as' => 'student.index', 'uses' => 'StudentController@index']);
+        Route::get('data', ['as' => 'student.data_json', 'uses' => 'StudentController@datajson']);
+        //add student
+        Route::post('add',['as'=>'student.addstudent','uses'=>'StudentController@addstudent']);
+
+//        //Delete item
+//        Route::get('destroy/{id}', ['as' => 'subject.getDestroy', 'uses' => 'SubjectController@destroy']);
+    });
 });
