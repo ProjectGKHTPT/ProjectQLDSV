@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Sinhvien extends Model
 {
-    protected $table='sinhvien';
+    protected $table='sinhviens';
 
 
     public function diems()
