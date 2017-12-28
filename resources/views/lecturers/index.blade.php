@@ -41,32 +41,39 @@
     </div>
 @stop
 @section('content')
+    @can('admin')
     <!-- Main content -->
     <div class="btn-group pull-right">
-        <button type="button" class="btn bg-olive btn-flat margin btn_add_user" data-toggle="modal" data-target="#add_subject"><i class="fa fa-plus" aria-hidden="true"></i> Thêm</button>
+        <button type="button" class="btn bg-olive btn-flat margin btn_add_lecturer" data-toggle="modal" data-target="#add_lecturer"><i class="fa fa-plus" aria-hidden="true"></i> Thêm</button>
         {{--<a href="{{route('subject.getDestroy')}}">Xóa</a>--}}
     </div>
+    @endcan
     <table class="table table-bordered table-striped" id="custom-table">
         <thead>
         <tr>
             <th>STT</th>
-            <th>Mã Môn học</th>
-            <th>Tên môn học</th>
-            <th>Số tín chỉ</th>
-            <th>Số tiết</th>
-            <th>Giảng viên</th>
+            <th>Mã giảng viên</th>
+            <th>Tên giảng viên</th>
+            <th>Ngày sinh</th>
+            <th>Gioitinh</th>
+            <th>Học hàm</th>
+            <th>Học vị</th>
+            @can('admin')
             <th>Hành Động</th>
+            @endcan
         </tr>
         </thead>
     </table>
-    @include('subjects.add')
-    @include('user.edit')
+    @can('admin')
+    @include('lecturers.add')
+    @include('lecturers.edit')
+    @endcan
 @stop
 @section('js')
     <!-- List user JS -->
-    <script src="{{ asset('js/subject.js')}}"></script>
+    <script src="{{ asset('js/lecturer.js')}}"></script>
     <script>
-        var url="{{route('subject.data_json')}}";
+        var url="{{route('lecturer.data_json')}}";
         $(function() {
             datatable = $('#custom-table').DataTable({
 //                processing: true,
@@ -79,10 +86,14 @@
                         "className": "text-center",
                         'width':'5%'
                     },
+                    @can('admin')
                     {
-                        "targets": 4,
+                        "targets": 7,
                         "className": "text-center",
-                    }],
+                    }
+                    @endcan
+                    ],
+
 //            stateSave: true,
                 ajax: {
                     url: url,
@@ -97,12 +108,15 @@
                 },
                 columns: [
                     {data: 'rownum', name: 'rownum'},
-                    {data: 'mamon', name: 'mamon'},
-                    {data: 'tenmon', name: 'tenmon'},
-                    {data: 'sotinchi', name: 'sotinchi'},
-                    {data: 'sotiet', name: 'sotiet'},
+                    {data: 'magv', name: 'magv'},
                     {data: 'hotengv', name: 'hotengv'},
+                    {data: 'ngaysinh', name: 'ngaysinh'},
+                    {data: 'gioitinhgv', name: 'gioitinhgv'},
+                    {data: 'hocham', name: 'hocham'},
+                    {data: 'hocvi', name: 'hocvi'},
+                    @can('admin')
                     {data: 'action', name: 'action'},
+                    @endcan
 
 
 
@@ -134,12 +148,16 @@
                 $('.btn-edit').on('click', function () {
                     var url = $(this).data('detail');
                     var editUrl = $(this).data('url');
-                    $('#frm_edit_user').attr('action', editUrl);
+                    $('#frm_edit_lecturer').attr('action', editUrl);
                     $.get(url, function (resp) {
-                        $("#edit_email").attr('data-item-id', resp.id);
-                        $("#edit_name").val(resp.name);
-                        $("#edit_email").val(resp.email);
-                        $("#edit_level").val(resp.level).trigger('change');
+                        $("#edit_magv").val(resp.magv);
+                        $("#edit_hogv").val(resp.hogv);
+                        $("#edit_tengv").val(resp.tengv);
+                        $("#edit_gioitinh").val(resp.gioitinh).trigger('change');
+                        $("#edit_ngaysinh").val(resp.ngaysinh);
+                        $("#edit_hocham").val(resp.hocham);
+                        $("#edit_hocvi").val(resp.hocvi);
+                        // $("#edit_level").val(resp.level).trigger('change');
                     }, 'json');
                 });
             });

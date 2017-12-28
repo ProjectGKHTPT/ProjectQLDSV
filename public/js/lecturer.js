@@ -8,6 +8,11 @@ $(function () {
         allowClear: true,
         minimumResultsForSearch: -1
     });
+    $("#edit_gioitinh").select2({
+        placeholder: "--Giới Tính--",
+        allowClear: true,
+        minimumResultsForSearch: -1
+    });
     $("#type_search").select2({
         minimumResultsForSearch: -1,
     });
@@ -19,13 +24,16 @@ $(function () {
        $("#search-quequan").val("");
         datatable.ajax.reload();
     });
-    $('#btn_add_student').on('click', function (e) {
+    $('#btn_add_lecturer').on('click', function (e) {
         e.preventDefault();
-        $('#frm_add_student').submit();
+        $('#frm_add_lucturer').submit();
     });
-    $('#frm_add_student').validate({
+    $('#frm_add_lucturer').validate({
         errorClass: 'error-msg-validate',
         rules: {
+            add_magv: {
+                required: true,
+            },
             add_hosv: {
                 required: true,
             },
@@ -38,27 +46,19 @@ $(function () {
             add_ngaysinh: {
                 required: true,
             },
-            add_monhoc: {
-                required: true,
-            },
-            add_quequan: {
-                required: true,
-            },
         }
     });
-    $("#frm_add_student").on('submit', function (e) {
+    $("#frm_add_lucturer").on('submit', function (e) {
         if ($(this).valid()) {
             var data = $(this).serializeArray();
             var url = $(this).attr('action');
             $.post(url, data, function (resp) {
                 if (resp.error == 1) {
                     toastr.error(resp.message, 'Thông Báo!', {closeButton: true});
-                    datatable.ajax.reload();
-                    $('#add_student').modal('hide');
                 } else {
                     toastr.success(resp.message, 'Thông Báo!', {closeButton: true});
                     datatable.ajax.reload();
-                    $('#add_student').modal('hide');
+                    $('#add_lecturer').modal('hide');
                 }
             }, 'json');
             return false;
@@ -67,17 +67,21 @@ $(function () {
     /**
      * Edit form
      */
-    $('#btn_edit_student').on('click', function (e) {
+    $('#btn_edit_lecturer').on('click', function (e) {
         e.preventDefault();
-        $('#frm_edit_student').submit();
+
+        $('#frm_edit_lecturer').submit();
     })
     $('#frm_edit_student').validate({
         errorClass: 'error-msg-validate',
         rules: {
-            edit_hosv: {
+            edit_magv: {
                 required: true,
             },
-            edit_tensv: {
+            edit_hogv: {
+                required: true,
+            },
+            edit_tengv: {
                 required: true,
             },
             edit_gioitinh: {
@@ -86,12 +90,9 @@ $(function () {
             edit_ngaysinh: {
                 required: true,
             },
-            edit_quequan: {
-                required: true,
-            },
         }
     });
-    $("#frm_edit_student").on('submit', function (e) {
+    $("#frm_edit_lecturer").on('submit', function (e) {
         if ($(this).valid()) {
             var data = $(this).serializeArray();
             var url = $(this).attr('action');
@@ -101,7 +102,7 @@ $(function () {
                 } else {
                     toastr.success(resp.message, 'Thông Báo!', {closeButton: true});
                     datatable.ajax.reload();
-                    $('#edit_student').modal('hide');
+                    $('#edit_lecturer').modal('hide');
                     // $('#edit_name').val('');
                     // $('#edit_email').val('');
                     // $('#edit_level').select2('val', 'All');

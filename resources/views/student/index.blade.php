@@ -59,12 +59,32 @@
     </div>
 @stop
 @section('content')
+    @can('admin')
     <!-- Main content -->
-    <div class="btn-group pull-right">
-        <button type="button" class="btn bg-olive btn-flat margin btn_add_user" data-toggle="modal" data-target="#add_student"><i class="fa fa-plus" aria-hidden="true"></i> Thêm</button>
-        {{--<a href="{{route('subject.getDestroy')}}">Xóa</a>--}}
+    <div class="btn-group pull-right"   >
+        <div class="btn-group action_btn relative" style="position: relative;">
+            <button class="btn btn-info btn-flat margin  dropdown-toggle" type="button" data-toggle="dropdown">
+                <i class="fa fa-wrench" aria-hidden="true"></i> Công cụ
+                <i class="fa fa-angle-down" aria-hidden="true"></i>
+            </button>
+            <ul class="dropdown-menu" role="menu" style="min-width: 100%!important;top: 50px;">
+                <li>
+                    <a class="btn btn-xs btn-flat" tabindex="0" aria-controls="street-table" target="_blank" href="">
+                        <i class="fa fa-file-excel-o" aria-hidden="true"></i>
+                        <span>Nhập Excel</span>
+                    </a>
+                </li>
+                <li>
+                    <a type="button" class="btn btn-xs btn-flat btn_add_user" data-toggle="modal" data-target="#add_student">
+                        <i class="fa fa-plus" aria-hidden="true"></i>
+                        <span>Thêm</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
     </div>
-    <table class="table table-bordered table-striped" id="user-table">
+    @endcan
+    <table class="table table-bordered table-striped" id="custom-table">
         <thead>
         <tr>
             <th>STT</th>
@@ -74,26 +94,31 @@
             <th>Ngày Sinh</th>
             <th>Quê Quán</th>
             <th>Lớp</th>
+            @can('admin')
             <th>Hành Động</th>
+                @endcan
         </tr>
         </thead>
     </table>
     @include('student.add')
-    @include('user.edit')
+    @include('student.edit')
 @stop
 @section('js')
     <!-- List user JS -->
     <script src="{{ asset('js/student.js')}}"></script>
+    <script src="https://cdn.datatables.net/buttons/1.5.0/js/dataTables.buttons.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.32/pdfmake.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.32/vfs_fonts.js"></script>
+    <script src="//cdn.datatables.net/buttons/1.5.0/js/buttons.html5.min.js"></script>
     <script>
         var url="{{route('student.data_json')}}";
         $(function() {
-            datatable = $('#user-table').DataTable({
-                "scrollY": "300px",
-                "scrollCollapse": true,
-                "scrollX": true,
-               processing: true,
+            datatable = $('#custom-table').DataTable({
+                dom: 'Bfrtip',
+                processing: true,
                 serverSide: true,
-                autoWidth: false,
+                autoWidth: true,
                 searching: false,
                 columnDefs: [
                     {
@@ -101,10 +126,13 @@
                         "className": "text-center",
                         'width':'5%'
                     },
+                        @can('admin')
                     {
                         "targets": 7,
                         "className": "text-center",
-                    }],
+                    }
+                    @endcan
+                    ],
 //            stateSave: true,
                 ajax: {
                     url: url,
@@ -128,12 +156,40 @@
                     {data: 'ngaysinh', name: 'ngaysinh'},
                     {data: 'quequan', name: 'quequan'},
                     {data: 'malopsv', name: 'malopsv'},
+                    @can('admin')
                     {data: 'action', name: 'action'}
+                    @endcan
                 ],
-
-                buttons: [
-                    'copy', 'excel', 'pdf'
-                ],
+                 buttons: [
+                        {
+                            extend: 'excel',
+                            text: 'Xuất excel',
+                            title: 'Danh sách sinh viên',
+                            filename: 'danhsachsinhvien',
+                            header: true,
+                            footer: false,
+                            className: 'btn btn-warning btn-flat',
+                            exportOptions: {
+                                columns: [0, 1, 2, 3, 4, 5, 6]
+                            }
+                        },
+                        {
+                            extend: 'pdf',
+                            text: 'PDF',
+                            title: 'Danh sách sinh viên',
+                            filename: 'danhsachsinhvien',
+                            header: true,
+                            footer: false,
+                            className: 'btn btn-danger btn-flat',
+                            exportOptions: {
+                                columns: [0, 1, 2, 3, 4, 5, 6]
+                            }
+                        },
+                        ],
+                        initComplete : function () {
+                        datatable.buttons().container()
+                        .appendTo( $('.my-dt-buttons:eq(0)'));
+                        },
                 language: {
                     "lengthMenu": "Hiển thị _MENU_ bản ghi",
                     "zeroRecords": "Không có bản ghi nào được tìm thấy",
@@ -150,8 +206,8 @@
                     "infoEmpty": "Trình bày 0 - 0 trong 0 mục"
                 },
                 lengthMenu: [
-                    [5, 10, 20, 50, -1],
-                    ['5', '10', '20', '50', 'All']
+                    [-1],
+                    ['all']
                 ],
                 drawCallback: function () {
                 }
@@ -160,12 +216,16 @@
                 $('.btn-edit').on('click', function () {
                     var url = $(this).data('detail');
                     var editUrl = $(this).data('url');
-                    $('#frm_edit_user').attr('action', editUrl);
+                    $('#frm_edit_student').attr('action', editUrl);
                     $.get(url, function (resp) {
-                        $("#edit_email").attr('data-item-id', resp.id);
-                        $("#edit_name").val(resp.name);
-                        $("#edit_email").val(resp.email);
-                        $("#edit_level").val(resp.level).trigger('change');
+                        console.log(resp);
+                        $("#edit_hosv").val(resp.hosv);
+                        $("#edit_tensv").val(resp.tensv);
+                        $("#edit_gioitinh").val(resp.gioitinh);
+                        $("#edit_ngaysinh").val(resp.ngaysinh);
+                        $("#edit_quequan").val(resp.quequan);
+                        $("#edit_ngaysinh").val(resp.ngaysinh);
+                        $("#edit_lop").val(resp.lop_id).trigger('change');
                     }, 'json');
                 });
             });

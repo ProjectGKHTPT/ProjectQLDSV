@@ -7,12 +7,13 @@
             <div class="col-md-8">
                 <div class="btn btn-flat fix-box" style="margin: 0;padding: 0 0 0 12px;">
                     <select name="search_lop" id="search_lop" class="form-control">
+                        <option>--Chọn lớp--</option>
                         @foreach(App\Lop::pluck('malop','malop')->all() as $key=>$val)
-                        <option value="{{$key}}">{{$val}}</option>
-                            @endforeach
+                            <option value="{{$key}}">{{$val}}</option>
+                        @endforeach
                     </select>
                     <select name="search_mh" id="search_mh" class="form-control">
-                            <option>--Chọn môn học--</option>
+                        <option>--Chọn môn học--</option>
                         @foreach(App\Monhoc::pluck('mamon','mamon')->all() as $key=>$val)
                             <option value="{{$key}}">{{$val}}</option>
                         @endforeach
@@ -25,13 +26,7 @@
                             {{--<li>--}}
                                 {{--<div class="form-group has-feedback">--}}
                                     {{--<span class="fa fa-search form-control-feedback"></span>--}}
-                                    {{--<input type="text" name="a" class="form-control" placeholder="Tên Đầy Đủ" id="loap" >--}}
-                                {{--</div>--}}
-                            {{--</li>--}}
-                            {{--<li>--}}
-                                {{--<div class="form-group has-feedback">--}}
-                                    {{--<span class="fa fa-search form-control-feedback"></span>--}}
-                                    {{--<input type="text" name="search-email" class="form-control" placeholder="Email" id="search-email">--}}
+                                    {{--<input type="text" name="search-masv" class="form-control" placeholder="Nhập mã sinh viên" id="search-masv">--}}
                                 {{--</div>--}}
                             {{--</li>--}}
                         {{--</ul>--}}
@@ -49,10 +44,27 @@
 @stop
 @section('content')
     <!-- Main content -->
-    {{--<div class="btn-group pull-right">--}}
-        {{--<button type="button" class="btn bg-olive margin btn-flat btn_add_user" data-toggle="modal" data-target="#add_subject"><i class="fa fa-plus" aria-hidden="true"></i> Thêm</button>--}}
-        {{--{!! Form::select('mon_id', \App\Monhoc::pluck('tenmon','id')->all(), null, ['id'=>'mon_id', 'class'=>'form-control']) !!}--}}
-        {{--<a href="{{route('subject.getDestroy')}}">Xóa</a>--}}
+    {{--<div class="btn-group pull-right"   >--}}
+        {{--<div class="btn-group action_btn relative" style="position: relative;">--}}
+            {{--<button class="btn btn-info btn-flat margin  dropdown-toggle" type="button" data-toggle="dropdown">--}}
+                {{--<i class="fa fa-wrench" aria-hidden="true"></i> Công cụ--}}
+                {{--<i class="fa fa-angle-down" aria-hidden="true"></i>--}}
+            {{--</button>--}}
+            {{--<ul class="dropdown-menu" role="menu" style="min-width: 100%!important;top: 50px;">--}}
+                {{--<li>--}}
+                    {{--<a class="btn btn-xs btn-flat" tabindex="0" aria-controls="street-table" target="_blank" href="">--}}
+                        {{--<i class="fa fa-file-excel-o" aria-hidden="true"></i>--}}
+                        {{--<span>Nhập Excel</span>--}}
+                    {{--</a>--}}
+                {{--</li>--}}
+                {{--<li>--}}
+                    {{--<a type="button" class="btn btn-xs btn-flat btn_add_user" data-toggle="modal" data-target="#add_student">--}}
+                        {{--<i class="fa fa-plus" aria-hidden="true"></i>--}}
+                        {{--<span>Thêm</span>--}}
+                    {{--</a>--}}
+                {{--</li>--}}
+            {{--</ul>--}}
+        {{--</div>--}}
     {{--</div>--}}
     <table class="table table-bordered table-striped" id="custom-table">
         <thead>
@@ -69,37 +81,37 @@
             <th>Điểm Trung Bình</th>
         </tr>
         </thead>
-            @foreach ($student as $st)
-                <tr>
-                    <th>{{$st->rownum}}</th>
-                    <th>{{$st->masv}}</th>
-                    <th>{{$st->hosv.' '.$st->tensv}}</th>
-                    <th>{{$st->malop}}</th>
-                    <th>{{$st->mamon}}</th>
-                    <th contenteditable="true" onBlur="saveToDatabase(this,'diemcc','{{$st->diem_id}}','{{$st->sv_id}}','{{$st->monhoc_id}}')">{{$st->diemcc}}</th>
-                    <th contenteditable="true" onBlur="saveToDatabase(this,'diemtx','{{$st->diem_id}}','{{$st->sv_id}}','{{$st->monhoc_id}}')">{{$st->diemtx}}</th>
-                    <th contenteditable="true" onBlur="saveToDatabase(this,'diemgk','{{$st->diem_id}}','{{$st->sv_id}}','{{$st->monhoc_id}}')">{{$st->diemgk}}</th>
-                    <th contenteditable="true" onBlur="saveToDatabase(this,'diemck','{{$st->diem_id}}','{{$st->sv_id}}','{{$st->monhoc_id}}')">{{$st->diemck}}</th>
-                    <th >{{$st->diemtb}}</th>
-
-                </tr>
-            @endforeach
+        @foreach ($student as $st)
+            <tr>
+                <th>{{$st->rownum}}</th>
+                <th>{{$st->masv}}</th>
+                <th>{{$st->hosv.' '.$st->tensv}}</th>
+                <th>{{$st->malop}}</th>
+                <th>{{$st->mamon}}</th>
+                <th>{{$st->diemcc}}</th>
+                <th>{{$st->diemtx}}</th>
+                <th>{{$st->diemgk}}</th>
+                <th>{{$st->diemck}}</th>
+                <th>{{$st->diemtb}}</th>
+            </tr>
+        @endforeach
     </table>
 @stop
 @section('css')
     <link rel="stylesheet" href="{{asset('css/point.css')}} ">
 @stop
 @section('js')
+    <!-- List user JS -->
     <script src="{{ asset('js/point.js')}}"></script>
     <script>
-        var url="{{route('point.savediem')}}";
+
         $(document).ready(function() {
             var table = $("#custom-table").DataTable({
                 // "scrollY": "300px",
                 // "scrollCollapse": true,
                 // "scrollX": true,
-                processing: true,
-                // serverSide: true,
+                // processing: true,
+                // // serverSide: true,
                 autoWidth: true,
                 searching: true,
                 lengthMenu: [
@@ -112,7 +124,7 @@
                     "emptyTable": "Không có bản ghi nào được hiển thị",
                     "processing": "Đang xử lý",
                     "search": "Tìm kiếm",
-                    "infoFiltered":   "(được lọc từ tổng số _MAX_ mục nhập)",
+                    "infoFiltered": "(được lọc từ tổng số _MAX_ mục nhập)",
                     "paginate": {
                         "first": "Đầu tiên",
                         "last": "Cuối cùng",
@@ -124,16 +136,27 @@
                 },
             });
             // var search_lop= $('#search_lop').val();
+            // var search_mh= $('#search_mh').val();
+            // var search_masv= $('#search-masv').val();
             // table.search(search_lop).draw();
-            // $('#search_lop, #search_mh').on( 'change', function () {
+            // $('#search_lop').on( 'change', function () {
+            //    table.columns().search( this.value ).draw();
+            // } );
+            // $('#search_mh').on( 'change', function () {
             //     table.search( this.value ).draw();
             // } );
+            // $('#search-masv').on('keyup',function () {
+            //     table.search( this.value ).draw();
+            // });
+            /* Custom filtering function which will search data in column four between two values */
             $.fn.dataTable.ext.search.push(
                 function (settings, data, dataIndex) {
                     var search_lop = $('#search_lop').val();
                     var search_mh = $('#search_mh').val();
+                    var search_masv = $('#search-masv').val();
                     var lop = data[3]; // use data for the age column
                     var mh = data[4]; // use data for the age column
+                    var masv = data[1]; // use data for the age column
                     if (search_lop == lop && search_mh == mh) {
                         return true
                     }
@@ -142,28 +165,10 @@
                 }
             );
             // Event listener to the two range filtering inputs to redraw on input
-            $('#search_lop').change(function () {
-                $('#search_mh').val('').trigger('change');
-            });
-            $('#search_mh').change(function () {
+            $('#search_lop, #search_mh').change(function () {
                 table.draw();
             });
         });
-        function saveToDatabase(diem,column,diem_id,sv_id,monhoc_id) {
-            $(diem).css("background","#FFF url({{url('image/preloader.gif')}}) no-repeat right");
-            // $(diem).css("background"," url(https://media.giphy.com/media/EhTIih4rcMoSI/source.gif) no-repeat right");
-            $.ajax({
-                url: url,
-                type: "POST",
-                data: {diem: diem.innerHTML, column: column, diem_id: diem_id,sv_id: sv_id,monhoc_id: monhoc_id},
-                success: function(data){
-                    $(diem).css("background","#FDFDFD");
-                    // toastr.success(data.message, 'Thông Báo!', {closeButton: true});
-                },
-                error: function (data) {
-                    $(diem).css("background","red");
-                }
-            });
-        }
+
     </script>
 @stop

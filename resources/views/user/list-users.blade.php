@@ -45,7 +45,7 @@
     <div class="btn-group pull-right">
         <button type="button" class="btn bg-olive btn-flat margin btn_add_user" data-toggle="modal" data-target="#add_user"><i class="fa fa-plus" aria-hidden="true"></i> Thêm</button>
     </div>
-    <table class="table table-bordered table-striped" id="user-table">
+    <table class="table table-bordered table-striped" id="custom-table">
        <thead>
        <tr>
            <th>STT</th>
@@ -66,7 +66,7 @@
     <script>
         var url="{{route('data_json')}}";
         $(function() {
-            datatable = $('#user-table').DataTable({
+            datatable = $('#custom-table').DataTable({
 //                processing: true,
                 serverSide: true,
                 autoWidth: false,

@@ -21,6 +21,14 @@
                                         <input type="text" name="tenlop" id="name" class="form-control" placeholder="Nhập tên lớp" required>
                                     </div>
                                 </div>
+                                <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <i class="fa fa-user"></i>
+                                        </span>
+                                    <div class="form-line">
+                                        <input type="text" name="tenlop" id="name" class="form-control" placeholder="Nhập tên lớp" required>
+                                    </div>
+                                </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="input-group">

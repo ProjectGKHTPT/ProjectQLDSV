@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Monhoc;
 use App\Sinhvien;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Database\QueryException;
+use Maatwebsite\Excel\Facades\Excel;
 use Yajra\DataTables\Facades\DataTables;
 
 class StudentController extends Controller
@@ -80,11 +82,11 @@ class StudentController extends Controller
 
                 return view('modals.btn-action-modal',
                     [
-                        'edit' => '#edit_user',
+                        'edit' => '#edit_student',
                         'id' => $data->id,
-                        'urlEdit' => route('postEdit', ['id' => $data->id]),
-                        'detail' => route('getDetail', ['id' => $data->id]),
-                        'destroy' => route('subject.getDestroy',['id' => $data->id])
+                        'urlEdit' => route('student.postEdit', ['id' => $data->id]),
+                        'detail' => route('student.getDetail', ['id' => $data->id]),
+                        'destroy' => route('student.getDestroy',['id' => $data->id])
                     ]);
             })
             ->rawColumns([ 'rownum','action','hotensv','gioitinhsv']);
@@ -110,6 +112,7 @@ class StudentController extends Controller
         }else{
             $masv=$masv.((int)$idmax+1);
         }
+        $monhoc=DB::table('monhoc_lop')->where('lop_id','=',$data['add_lop'])->get();
         $id = DB::table('sinhviens')->insertGetId([
             'masv' => $masv,
             'hosv' => $data['add_hosv'],
@@ -119,11 +122,16 @@ class StudentController extends Controller
             'quequan' => $data['add_quequan'],
             'lop_id' => $data['add_lop'],
             ]);
-        foreach ($data['add_monhoc'] as $mh) {
+        foreach ($monhoc as $mh) {
             DB::table('diems')->insert(
-                ['monhoc_id' => $mh, 'sinhvien_id' => $id]
+                ['monhoc_id' => $mh->monhoc_id, 'sinhvien_id' => $id]
             );
         }
+//        foreach ($data['add_monhoc'] as $mh) {
+//            DB::table('diems')->insert(
+//                ['monhoc_id' => $mh, 'sinhvien_id' => $id]
+//            );
+//        }
 
         //tau muốn lưu vào bảng điểm 2 giá trị 1,2,3 lúc nãy cho 3 hàng
 
@@ -148,23 +156,74 @@ class StudentController extends Controller
             ]);
         }
     }
-//    /**
-//     * Xóa 1 mục
-//     */
-//    public function destroy($id)
-//    {
-//        try {
-//            Lop::destroy($id);
-//            return Response::json([
-//                'error' => 0,
-//                'message' => 'Xóa thành công '
-//            ]);
-//        } catch (QueryException $e) {
-//            return Response::json([
-//                'error' => 1,
-//                'message' => $e
-//            ]);
-//        }
-//
-//    }
+    /**
+     * Export
+     */
+    public function getexport(Request $request){
+        $lop="";
+        die($request);
+        DB::statement(DB::raw('set @rownum=0'));
+        $student=DB::table('sinhviens')->join('lops','sinhviens.lop_id','=','lops.id')->select([
+            DB::raw('@rownum  := @rownum  + 1 AS rownum'),
+            'sinhviens.id',
+            'masv',
+            'hosv',
+            'tensv',
+            'gioitinh',
+            'ngaysinh',
+            'quequan',
+            'lops.malop AS malopsv'
+        ])->where($lop)->orderBy('sinhviens.id', 'desc')->get();
+        Excel::create('Filename', function($excel) use ($student){
+
+            $excel->sheet('Sheetname', function($sheet) use ($student){
+                $sheet->loadView('student.excel.export',['student'=>$student]);
+            });
+        })->export('xlsx');
+    }
+    public function postEdit(Request $request,$id){
+        $model = Sinhvien::find($id);
+        $model->hosv = $request->edit_hosv;
+        $model->tensv = $request->edit_tensv;
+        $model->gioitinh =  $request->edit_gioitinh;
+        $model->ngaysinh =  $request->edit_ngaysinh;
+        $model->quequan =  $request->edit_quequan;
+        $model->lop_id =  $request->edit_lop;
+        $model->save();
+        try{
+            return Response::json([
+                'error' => 0,
+                'message' => 'Sửa Thành Công '.$request->name
+            ]);
+        }catch (QueryException $e){
+            return Response::json([
+                'error' => 1,
+                'message' =>$e
+            ]);
+        }
+    }
+    public function detail($id)
+    {
+        $model = Sinhvien::find($id);
+        return Response::json($model);
+    }
+    /**
+     * Xóa 1 mục
+     */
+    public function destroy($id)
+    {
+        try {
+            Sinhvien::destroy($id);
+            return Response::json([
+                'error' => 0,
+                'message' => 'Xóa thành công '
+            ]);
+        } catch (QueryException $e) {
+            return Response::json([
+                'error' => 1,
+                'message' => $e
+            ]);
+        }
+
+    }
 }

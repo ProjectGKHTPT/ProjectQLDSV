@@ -1,6 +1,3 @@
-<style>
-
-</style>
 <div class="btn-group action_btn relative" style="position: relative">
     <button class="btn bg-teal btn-block btn-xs btn-flat dropdown-toggle" type="button" data-toggle="dropdown">
         <i class="fa fa-cogs" aria-hidden="true"></i> <i class="fa fa-angle-down" aria-hidden="true"></i>

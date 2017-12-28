@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Khoa;
 use App\Lop;
+use App\Monhoc;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -40,14 +41,20 @@ class SubjectController extends Controller
 //        }
 
         DB::statement(DB::raw('set @rownum=0'));
-        $subject=Lop::join('khoas','khoas.id','=','lops.khoa_id')->select([
+        $subject=Monhoc::join('giangviens','monhocs.giangvien_id','=','giangviens.id')->select([
             DB::raw('@rownum  := @rownum  + 1 AS rownum'),
-            'lops.id AS id',
-            'tenlopviettat',
-            'tenlop',
-            'tenkhoa'
-        ])->orderBy('lops.id', 'desc')->get();
+            'monhocs.id AS id',
+            'mamon',
+            'tenmon',
+            'sotinchi',
+            'sotiet',
+            'hogv',
+            'tengv'
+        ])->orderBy('monhocs.id', 'desc')->get();
         $datatables = DataTables::of($subject)
+            ->addColumn('hotengv',function ($data){
+              return $data->hogv." ".$data->tengv;
+            })
             ->addColumn('action', function ($data) {
 
                 return view('modals.btn-action-modal',
@@ -59,7 +66,7 @@ class SubjectController extends Controller
                         'destroy' => route('subject.getDestroy',['id' => $data->id])
                     ]);
             })
-            ->rawColumns([ 'rownum', 'action','level','picture']);
+            ->rawColumns([ 'rownum', 'action']);
         if ($keyword = $request->get('search')['value']) {
             $datatables->filterColumn('rownum', 'whereRaw', '@rownum  + 1 like ?', ["%{$keyword}%"]);
         }

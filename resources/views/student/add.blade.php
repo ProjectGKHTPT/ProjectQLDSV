@@ -81,19 +81,24 @@
                                         {{--</select>--}}
                                     </div>
                                 </div>
-                                <div class="input-group">
-                                    <span class="input-group-addon">
-                                        <i class="fa fa-users"></i>
-                                    </span>
-                                    <div class="form-line">
-                                        {!! Form::select('add_monhoc[]', \App\Monhoc::pluck('tenmon', 'id')->all(), null, ['id'=>'add_monhoc', 'class'=>'change-search-select2 form-control input-sm','style'=>'width:100%']) !!}
+                                {{--<div class="input-group">--}}
+                                    {{--<span class="input-group-addon">--}}
+                                        {{--<i class="fa fa-users"></i>--}}
+                                    {{--</span>--}}
+                                    {{--<div class="form-line">--}}
+                                        {{--<select name="add_monhoc[]" id="add_monhoc" class="form-control" style="width: 100%">--}}
+                                            {{--@foreach(App\Monhoc::select('monhocs.id AS monhocid','tenmon','hogv','tengv')->join('giangviens','monhocs.giangvien_id','=','giangviens.id')->get() as $val)--}}
+                                                {{--<option value="{{$val->monhocid}}">{{$val->tenmon.' ('.$val->hogv.' '.$val->tengv.')'}}</option>--}}
+                                            {{--@endforeach--}}
+                                        {{--</select>--}}
+                                        {{--{!! Form::select('add_monhoc[]', \App\Monhoc::pluck('tenmon', 'id')->all(), null, ['id'=>'add_monhoc', 'class'=>'change-search-select2 form-control input-sm','style'=>'width:100%']) !!}--}}
                                         {{--<select class="selectpicker show-tick form-control" name="level" id="level" style="width: 100%;" required>--}}
                                             {{--<option></option>--}}
                                             {{--<option value="0">Admin</option>--}}
                                             {{--<option value="1">Thành Viên</option>--}}
                                         {{--</select>--}}
-                                    </div>
-                                </div>
+                                    {{--</div>--}}
+                                {{--</div>--}}
 
                             </div>
                         </div>

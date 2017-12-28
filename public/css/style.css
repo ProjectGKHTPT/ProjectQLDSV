@@ -85,21 +85,21 @@ a.paginate_button.current {
     border: #d1dae5!important;
     border-radius: 0!important;
  }
-a#user-table_previous {
+a#custom-table_previous {
     padding: 8px 12px !important;
 }
-a#user-table_next {
+a#custom-table_next {
     padding: 8px 12px!important;
 }
-div#user-table_paginate {
+div#custom-table_paginate {
     padding-top: 0.755em;
 }
-a#user-table_previous.paginate_button.previous.disabled {
+a#custom-table_previous.paginate_button.previous.disabled {
     border: transparent!important;
     background: transparent!important;
     cursor: no-drop;
 }
-a#user-table_next.paginate_button.next.disabled {
+a#custom-table_next.paginate_button.next.disabled {
     border: transparent!important;
     background: transparent!important;
     cursor: no-drop;
@@ -107,8 +107,11 @@ a#user-table_next.paginate_button.next.disabled {
 table.dataTable thead th, table.dataTable thead td,table.dataTable.no-footer{
     border: #d1dae5!important;
 }
-table#user-table {
+table#custom-table {
     background: #39cccc;
+}
+#custom-table_filter{
+    display: none;
 }
 label.error-msg-validate {
     position: absolute;
@@ -135,7 +138,7 @@ label.error-msg-validate:after {
     /* border-left: transparent; */
     /* border-top: red; */
 }
-div#user-table_length label select {
+div#custom-table_length label select {
     border: none;
     background: transparent;
     /* border-bottom: 1px solid; */
