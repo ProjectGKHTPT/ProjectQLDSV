@@ -66,7 +66,6 @@
             <th>Điểm Thường Xuyên</th>
             <th>Điểm Giữa Kỳ</th>
             <th>Điểm Cuối Kỳ</th>
-            <th>Điểm Trung Bình</th>
         </tr>
         </thead>
             @foreach ($student as $st)
@@ -80,8 +79,6 @@
                     <th contenteditable="true" onBlur="saveToDatabase(this,'diemtx','{{$st->diem_id}}','{{$st->sv_id}}','{{$st->monhoc_id}}')">{{$st->diemtx}}</th>
                     <th contenteditable="true" onBlur="saveToDatabase(this,'diemgk','{{$st->diem_id}}','{{$st->sv_id}}','{{$st->monhoc_id}}')">{{$st->diemgk}}</th>
                     <th contenteditable="true" onBlur="saveToDatabase(this,'diemck','{{$st->diem_id}}','{{$st->sv_id}}','{{$st->monhoc_id}}')">{{$st->diemck}}</th>
-                    <th >{{$st->diemtb}}</th>
-
                 </tr>
             @endforeach
     </table>

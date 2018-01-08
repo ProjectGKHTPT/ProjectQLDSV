@@ -30,7 +30,6 @@ class PointController extends Controller
                 'diemtx',
                 'diemgk',
                 'diemck',
-                'diemtb',
                 'mamon',
                 'sinhviens.id AS sv_id',
                 'diems.id AS diem_id',
@@ -73,7 +72,6 @@ class PointController extends Controller
                 'diemtx',
                 'diemgk',
                 'diemck',
-                'diemtb',
                 'sinhviens.id AS sv_id',
                 'diems.id AS diem_id',
                 'monhocs.id AS monhoc_id'
@@ -184,7 +182,6 @@ class PointController extends Controller
                 'diemtx',
                 'diemgk',
                 'diemck',
-                'diemtb',
                 'mamon',
                 'sinhviens.id AS sv_id',
                 'diems.id AS diem_id',

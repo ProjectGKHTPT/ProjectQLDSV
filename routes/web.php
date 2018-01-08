@@ -11,9 +11,9 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+//Route::get('/', function () {
+//    return view('welcome');
+//});
 Route::group(['prefix' => 'admin'], function () {
     Route::get('login',['as'=>'admin.getLogin','uses'=>'UserController@getLogin']);
     Route::post('login',['as'=>'admin.postLogin','uses'=>'UserController@postLogin']);
@@ -99,5 +99,13 @@ Route::group(['middleware' => ['login']], function () {
         Route::get('destroy/{id}', ['as' => 'lecturer.getDestroy', 'uses' => 'LecturerController@destroy']);
         Route::post('edit/{id}', ['as' => 'lecturer.postEdit', 'uses' => 'LecturerController@postEdit']);
         Route::get('detail/{id}', ['as' => 'lecturer.getDetail', 'uses' => 'LecturerController@detail']);
+    });
+    Route::group(['prefix' => 'studyagain'], function () {
+        Route::get('/', ['as' => 'studyagain.index', 'uses' => 'StudyagainController@index']);
+        Route::get('data', ['as' => 'studyagain.data_json', 'uses' => 'StudyagainController@datajson']);
+    });
+    Route::group(['prefix' => 'retest'], function () {
+        Route::get('/', ['as' => 'retest.index', 'uses' => 'RetestController@index']);
+        Route::get('data', ['as' => 'retest.data_json', 'uses' => 'RetestController@datajson']);
     });
 });

@@ -112,7 +112,7 @@ class StudentController extends Controller
         }else{
             $masv=$masv.((int)$idmax+1);
         }
-        $monhoc=DB::table('monhoc_lop')->where('lop_id','=',$data['add_lop'])->get();
+        $phancong=DB::table('phancong')->where('lop_id','=',$data['add_lop'])->get();
         $id = DB::table('sinhviens')->insertGetId([
             'masv' => $masv,
             'hosv' => $data['add_hosv'],
@@ -122,9 +122,9 @@ class StudentController extends Controller
             'quequan' => $data['add_quequan'],
             'lop_id' => $data['add_lop'],
             ]);
-        foreach ($monhoc as $mh) {
+        foreach ($phancong as $pc) {
             DB::table('diems')->insert(
-                ['monhoc_id' => $mh->monhoc_id, 'sinhvien_id' => $id]
+                ['monhoc_id' => $pc->monhoc_id, 'sinhvien_id' => $id]
             );
         }
 //        foreach ($data['add_monhoc'] as $mh) {
