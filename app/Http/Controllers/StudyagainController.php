@@ -40,6 +40,10 @@ class StudyagainController extends Controller
         }
         DB::statement(DB::raw('set @rownum=0'));
         $diem =DB::table('diems')
+            ->join('sinhviens', 'diems.sinhvien_id', '=', 'sinhviens.id')
+            ->join('monhocs', 'diems.monhoc_id', '=', 'monhocs.id')
+            ->join('lops', 'sinhviens.lop_id', '=', 'lops.id')
+
             ->select([
                 DB::raw('@rownum  := @rownum  + 1 AS rownum'),
                 'masv',
@@ -54,11 +58,6 @@ class StudyagainController extends Controller
                 'diemthilai',
                 'tenmon'
             ])
-
-            ->join('sinhviens', 'diems.sinhvien_id', '=', 'sinhviens.id')
-            ->join('monhocs', 'diems.monhoc_id', '=', 'monhocs.id')
-            ->join('lops', 'sinhviens.lop_id', '=', 'lops.id')
-
             ->where('diemcc', '<', 5)
             ->orWhere([['diemcc', '<', 3],['diemtx', '<', 3]])
             ->orWhere([['diemcc', '<', 3],['diemgk', '<', 3]])
@@ -72,7 +71,6 @@ class StudyagainController extends Controller
             ->whereNotNull('diemcc')
             ->whereNotNull('diemtx')
             ->whereNotNull('diemgk')
-
             ->get();
 
 //            ->orwhere(function ($query) {

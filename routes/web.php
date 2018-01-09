@@ -108,4 +108,9 @@ Route::group(['middleware' => ['login']], function () {
         Route::get('/', ['as' => 'retest.index', 'uses' => 'RetestController@index']);
         Route::get('data', ['as' => 'retest.data_json', 'uses' => 'RetestController@datajson']);
     });
+    Route::group(['prefix' => 'studyresult'], function () {
+        Route::get('/{lopid}/{namhoc}/{hocky}', ['uses' => 'StudyresultController@index']);
+//        Route::get('/{lopid}/{namhoc}/{hocky}/{dtb}/{drl}/{slg}', ['uses' => 'StudyresultController@hocbonggioi']);
+//        Route::get('data', ['as' => 'studyresult.data_json', 'uses' => 'StudyresultController@datajson']);
+    });
 });

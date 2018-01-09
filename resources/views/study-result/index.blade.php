@@ -3,38 +3,37 @@
 @section('content_header')
     <div class="row">
         {{--{!! Form:: !!}--}}
-        <form method="post" id="search-form">
             <div class="col-md-8">
                 <div class="btn btn-flat fix-box" style="margin: 0;padding: 0 0 0 12px;">
-                    <select name="type-search" id="type_search" class="form-control">
-                        <option value="0">Gần Đúng</option>
-                        <option value="1">Chính Xác</option>
+                    {{--<div class="btn-group wrap-click-drop">--}}
+                        {{--<a class="btn bg-teal btn-block btn-flat dropdown-toggle" data-toggle="dropdown"> Học bổng--}}
+                            {{--<i class="fa fa-angle-down"></i>--}}
+                        {{--</a>--}}
+                        {{--<ul class="dropdown-menu pull-left" style="padding: 10px;width: 300px;">--}}
+                            {{--<li>--}}
+                                {{--<div class="form-group has-feedback">--}}
+                                    {{--<input type="text" name="a" class="form-control" placeholder="Tên Đầy Đủ" id="loap" >--}}
+                                {{--</div>--}}
+                            {{--</li>--}}
+                        {{--</ul>--}}
+                    {{--</div>--}}
+                    <select name="search_lopid" id="search_lopid" class="form-control">
+                        @foreach(App\Lop::pluck('malop','id')->all() as $key=>$val)
+                            <option value="{{$key}}"  @if($key==$lopid)selected @endif>{{$val}}</option>
+                        @endforeach
                     </select>
-                    <div class="btn-group wrap-click-drop">
-                        <a class="btn bg-teal btn-block btn-flat dropdown-toggle" data-toggle="dropdown"> Tìm kiếm
-                            <i class="fa fa-angle-down"></i>
-                        </a>
-                        <ul class="dropdown-menu pull-left" style="padding: 10px;width: 300px;">
-                            <li>
-                                <div class="form-group has-feedback">
-                                    <span class="fa fa-search form-control-feedback"></span>
-                                    <input type="text" name="search-malop" class="form-control" placeholder="Mã lớp" id="search-malop">
-                                </div>
-                            </li>
-                            <li>
-                                <div class="form-group has-feedback">
-                                    <span class="fa fa-search form-control-feedback"></span>
-                                    <input type="text" name="search-mamh" class="form-control" placeholder="Mã môn học" id="search-mamh" >
-                                </div>
-                            </li>
-                            <li>
-                                <div class="form-group has-feedback">
-                                    <span class="fa fa-search form-control-feedback"></span>
-                                    <input type="text" name="search-masv" class="form-control" placeholder="Mã sinh viên" id="search-masv" >
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
+                    <select name="search_namhoc" id="search_namhoc" class="form-control">
+                        @foreach(\Illuminate\Support\Facades\DB::table('hockys')->pluck('namhoc','namhoc')->all() as $key=>$val)
+                            <option value="{{$key}}" @if($key==$namhoc)selected @endif>{{$val}}</option>
+                        @endforeach
+                    </select>
+                    <select name="search_hocky" id="search_hocky" class="form-control">
+                        @foreach(\Illuminate\Support\Facades\DB::table('hockys')->pluck('hocky','hocky')->all() as $key=>$val)
+                            <option value="{{$key}}" @if($key==$hocky)selected @endif>{{$val}}</option>
+                        @endforeach
+                    </select>
+                    <button name="btnstudyresult" onclick="btnstudyresult()" class="btn bg-teal btn-flat">Duyệt</button>
+
                 </div>
             </div>
         </form>
@@ -47,140 +46,163 @@
     </div>
 @stop
 @section('content')
-    {{--@can('admin')--}}
-    {{--<!-- Main content -->--}}
-    {{--<div class="btn-group pull-right"   >--}}
-        {{--<div class="btn-group action_btn relative" style="position: relative;">--}}
-            {{--<button class="btn btn-info btn-flat margin  dropdown-toggle" type="button" data-toggle="dropdown">--}}
-                {{--<i class="fa fa-wrench" aria-hidden="true"></i> Công cụ--}}
-                {{--<i class="fa fa-angle-down" aria-hidden="true"></i>--}}
-            {{--</button>--}}
-            {{--<ul class="dropdown-menu" role="menu" style="min-width: 100%!important;top: 50px;">--}}
-                {{--<li>--}}
-                    {{--<a class="btn btn-xs btn-flat" tabindex="0" aria-controls="street-table" target="_blank" href="">--}}
-                        {{--<i class="fa fa-file-excel-o" aria-hidden="true"></i>--}}
-                        {{--<span>Nhập Excel</span>--}}
-                    {{--</a>--}}
-                {{--</li>--}}
-                {{--<li>--}}
-                    {{--<a type="button" class="btn btn-xs btn-flat btn_add_user" data-toggle="modal" data-target="#add_student">--}}
-                        {{--<i class="fa fa-plus" aria-hidden="true"></i>--}}
-                        {{--<span>Thêm</span>--}}
-                    {{--</a>--}}
-                {{--</li>--}}
-            {{--</ul>--}}
+    <!-- Main content -->
+    {{--<div style="float: right;width: 50%">--}}
+        {{--<select name="loaihocbong" id="loaihocbong" class="form-control" style="float: left;width: 30%">--}}
+            {{--<option value="gioi" >Giỏi</option>--}}
+            {{--<option value="kha" >Khá</option>--}}
+        {{--</select>--}}
+        {{--<div id="soluong" style="display: inline">--}}
+            {{--<input onchange="xethocbong()" type="text" name="slg" class="form-control" placeholder="Số lượng học bổng" id="slg"  style="float: right;width: 30%">--}}
+            {{--<input type="text" name="drl" class="form-control" placeholder="Điểm RL" id="drl"  style="float: right;width: 20%">--}}
+            {{--<input type="text" name="dtb" class="form-control" placeholder="Điểm TB" id="dtb"  style="float: right;width: 20%">--}}
         {{--</div>--}}
     {{--</div>--}}
-    {{--@endcan--}}
     <table class="table table-bordered table-striped" id="custom-table">
         <thead>
-        <tr>
-            <th>STT</th>
-            <th>Mã sinh viên</th>
-            <th>Họ Tên Sinh Viên</th>
-            <th>Lớp</th>
-            <th>Môn học</th>
-            <th>Điểm chuyên cần</th>
-            <th>Điểm thường xuyên</th>
-            <th>Điểm giữa kỳ</th>
-            <th>Điểm cuối kỳ</th>
-            <th>Lý do</th>
-        </tr>
+            <tr>
+                <th>STT</th>
+                <th>Mã Sinh Viên</th>
+                <th>Tên Sinh Viên</th>
+                @foreach ($monhoc as $mh)
+                <th>{{$mh->tenmon}}</th>
+                @endforeach
+                <th>Điểm TB</th>
+                <th>Điểm Rèn Luyện</th>
+                <th>Học lực</th>
+            </tr>
         </thead>
+        <tbody>
+                @foreach($student as $st)
+                    @php
+                        $rownum=0;
+                        $diemtb=0;
+                        $dhl=0;
+                        $tongstc=0;
+                    @endphp
+                <tr>
+                    <td>{!! ++$rownum !!}</td>
+                    <td>{{$st->masv}}</td>
+                    <td>{{$st->hosv.' '.$st->tensv}}</td>
+                    @foreach ($diem as $d)
+                        @if($d->idsv==$st->idsv)
+                        <td>
+                            @if(($d->diemcc<5 || ($d->diemtx<3 && $d->diemgk<3) ) && $d->diemthilai!=null)
+                                0
+                                @php
+                                    $diemtb+=0;
+                                    $tongstc+=$d->sotinchi;
+                                @endphp
+                            @elseif(($d->diemcc>5 && $d->diemtx>=3 || $d->diemgk>=3) && $d->diemthilai==null)
+                                {{(10*$d->diemcc+10*$d->diemtx+30*$d->diemgk+50*$d->diemck)/100}}
+                                @php
+                                    $diemtb+=((10*$d->diemcc+10*$d->diemtx+30*$d->diemgk+50*$d->diemck)/100)*$d->sotinchi;
+                                    $tongstc+=$d->sotinchi;
+                                @endphp
+                            @else
+                                {{(10*$d->diemcc+10*$d->diemtx+30*$d->diemgk+50*$d->diemthilai)/100}}
+                                @php
+                                    $diemtb+=((10*$d->diemcc+10*$d->diemtx+30*$d->diemgk+50*$d->diemthilai)/100)*$d->sotinchi;
+                                    $tongstc+=$d->sotinchi;
+                                @endphp
+                            @endif
+                        </td>
+                        @endif
+                    @endforeach
+                    <td>{{$dhl=$diemtb/$tongstc}}</td>
+                    <td>{{$st->diemrl}}</td>
+                    <td>
+                        @if($dhl>=8)
+                            Giỏi
+                        @elseif($dhl>=7 && $dhl<8)
+                            Khá
+                        @elseif($dhl>=6 && $dhl<7)
+                            Trung Bình Khá
+                        @elseif($dhl>=5 && $dhl<6)
+                            Trung bình
+                        @else
+                            Yếu
+                        @endif
+                    </td>
+                </tr>
+                @endforeach
+        </tbody>
+
     </table>
 @stop
+@section('css')
+@stop
 @section('js')
-    <!-- List user JS -->
-    <script src="{{ asset('js/student.js')}}"></script>
-    <script src="https://cdn.datatables.net/buttons/1.5.0/js/dataTables.buttons.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.32/pdfmake.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.32/vfs_fonts.js"></script>
-    <script src="//cdn.datatables.net/buttons/1.5.0/js/buttons.html5.min.js"></script>
+    <script src="{{ asset('js/studyresult.js')}}"></script>
     <script>
-        var url="{{route('studyagain.data_json')}}";
-        $(function() {
-            datatable = $('#custom-table').DataTable({
-                dom: 'Bfrtip',
-                "paging": false,
+        function btnstudyresult() {
+            var lopid =$("#search_lopid").val();
+            var hocky =$("#search_hocky").val();
+            var namhoc =$("#search_namhoc").val();
+            document.location.href = 'http://projectqldsv.dev/studyresult/'+lopid+'/'+namhoc+'/'+hocky;
+        }
+        // function xethocbong() {
+        //     var lopid =$("#search_lopid").val();
+        //     var hocky =$("#search_hocky").val();
+        //     var namhoc =$("#search_namhoc").val();
+        //     var loaihocbong=$("#loaihocbong").val();
+        //     var slg =$("#slg").val();
+        //     var slk =$("#slk").val();
+        //     var dtb =$("#dtb").val();
+        //     var drl =$("#drl").val();
+        //     if(loaihocbong=="gioi"){
+        //         if(slg.length==0 || drl.length==0 || dtb.length==0){
+        //             toastr.error('Vui lòng nhập dữ liệu vào các trường còn trống', 'Thông Báo!', {closeButton: true});
+        //         }else {
+        //             if(isNaN(slg) || isNaN(drl) ||isNaN(dtb)){
+        //                 toastr.error('Vui lòng nhập kiểu dữ liệu số', 'Thông Báo!', {closeButton: true});
+        //             }else {
+        //                 document.location.href = 'http://projectqldsv.dev/studyresult/'+lopid+'/'+namhoc+'/'+hocky+'/'+dtb+'/'+drl+'/'+slg;
+        //             }
+        //         }
+        //     }
+        //     if(loaihocbong=="kha"){
+        //         if(slg.length==0 && slk.length==0 ||slg.length==0 && slk.length!=0 ||slg.length!=0 && slk.length==0 ){
+        //         }else
+        //              {
+        //              if(isNaN(slg) || isNaN(slk)){
+        //                  alert('Vui lòng nhập kiểu số');
+        //             }else {
+        //                 document.location.href = 'http://projectqldsv.dev/studyresult/'+lopid+'/'+namhoc+'/'+hocky+'/'+slg+'/'+slk;
+        //             }
+        //         }
+        //     }
+        // }
+        // $("#loaihocbong").change(function () {
+        //     if($("#loaihocbong").val()=="gioi"){
+        //         $("#soluong").html('<input onchange="xethocbong()" type="text" name="slg" class="form-control" placeholder="Số lượng học bổng" id="slg"  style="float: right;width: 80%">');
+        //     }
+        //     if($("#loaihocbong").val()=="kha"){
+        //         $("#soluong").html('<input onchange="xethocbong()" type="text" name="slk" class="form-control" placeholder="Số lượng khá" id="slk"  style="float: right;width: 40%">' +
+        //             '<input onchange="xethocbong()" type="text" name="slg" class="form-control" placeholder="Số lượng giỏi" id="slg"  style="float: right;width: 40%">');
+        //     }
+        // })
+        var url="{{route('point.savediem')}}";
+        $(document).ready(function() {
+            var table = $("#custom-table").DataTable({
+                // "scrollY": "300px",
+                // "scrollCollapse": true,
+                // "scrollX": true,
                 processing: true,
-                serverSide: true,
+                // serverSide: true,
                 autoWidth: true,
-                searching: false,
-                {{--columnDefs: [--}}
-                    {{--{--}}
-                        {{--"targets": 0,--}}
-                        {{--"className": "text-center",--}}
-                        {{--'width':'5%'--}}
-                    {{--},--}}
-                        {{--@can('admin')--}}
-                    {{--{--}}
-                        {{--"targets": 7,--}}
-                        {{--"className": "text-center",--}}
-                    {{--}--}}
-                    {{--@endcan--}}
-                    {{--],--}}
-//            stateSave: true,
-                ajax: {
-                    url: url,
-                    data: function (d) {
-                       d.search.custom = {
-                           typesearch:$('#type_search').val(),
-                           malop: $('input[name=search-malop]').val(),
-                           masv: $('input[name=search-masv]').val(),
-                           mamh: $('input[name=search-mamh]').val(),
-
-                       };
-                    }
-                },
-                columns: [
-                    {data: 'rownum', name: 'rownum'},
-                    {data: 'masv', name: 'masv'},
-                    {data: 'hotensv', name: 'hotensv'},
-                    {data: 'malop', name: 'malop'},
-                    {data: 'mamon', name: 'mamon'},
-                    {data: 'diemcc', name: 'diemcc'},
-                    {data: 'diemtx', name: 'diemtx'},
-                    {data: 'diemgk', name: 'diemgk'},
-                    {data: 'diemck', name: 'diemck'},
-                    {data: 'lydo', name: 'lydo'},
+                searching: true,
+                lengthMenu: [
+                    [5, 10, 25, 50, -1],
+                    [5, 10, 25, 50, 'Tất cả']
                 ],
-                 buttons: [
-                        {
-                            extend: 'excel',
-                            text: 'Xuất excel',
-                            title: 'Danh sách sinh viên học lại',
-                            filename: 'danhsachsinhvienhoclai',
-                            header: true,
-                            footer: false,
-                            className: 'btn btn-warning btn-flat',
-                            exportOptions: {
-                                columns: [0, 1, 2, 3, 4, 5, 6,7,8,9]
-                            }
-                        },
-                        {
-                            extend: 'pdf',
-                            text: 'PDF',
-                            title: 'Danh sách sinh viên học lại',
-                            filename: 'danhsachsinhvienhoclai',
-                            header: true,
-                            footer: false,
-                            className: 'btn btn-danger btn-flat',
-                            exportOptions: {
-                                columns: [0, 1, 2, 3, 4, 5, 6,7,8,9]
-                            }
-                        },
-                        ],
-                        initComplete : function () {
-                        datatable.buttons().container()
-                        .appendTo( $('.my-dt-buttons:eq(0)'));
-                        },
                 language: {
                     "lengthMenu": "Hiển thị _MENU_ bản ghi",
                     "zeroRecords": "Không có bản ghi nào được tìm thấy",
                     "emptyTable": "Không có bản ghi nào được hiển thị",
                     "processing": "Đang xử lý",
                     "search": "Tìm kiếm",
+                    "infoFiltered":   "(được lọc từ tổng số _MAX_ mục nhập)",
                     "paginate": {
                         "first": "Đầu tiên",
                         "last": "Cuối cùng",
@@ -190,30 +212,45 @@
                     "info": "Trình bày _START_ - _END_ trong số _TOTAL_ mục",
                     "infoEmpty": "Trình bày 0 - 0 trong 0 mục"
                 },
-                lengthMenu: [
-                    [-1],
-                    ['all']
-                ],
-                drawCallback: function () {
-                }
             });
-            datatable.on('draw', function () {
-                $('.btn-edit').on('click', function () {
-                    var url = $(this).data('detail');
-                    var editUrl = $(this).data('url');
-                    $('#frm_edit_student').attr('action', editUrl);
-                    $.get(url, function (resp) {
-                        console.log(resp);
-                        $("#edit_hosv").val(resp.hosv);
-                        $("#edit_tensv").val(resp.tensv);
-                        $("#edit_gioitinh").val(resp.gioitinh);
-                        $("#edit_ngaysinh").val(resp.ngaysinh);
-                        $("#edit_quequan").val(resp.quequan);
-                        $("#edit_ngaysinh").val(resp.ngaysinh);
-                        $("#edit_lop").val(resp.lop_id).trigger('change');
-                    }, 'json');
-                });
-            });
+            // var search_lop= $('#search_lop').val();
+            // table.search(search_lop).draw();
+            // $('#search_lop, #search_mh').on( 'change', function () {
+            //     table.search( this.value ).draw();
+            // } );
+            // $.fn.dataTable.ext.search.push(
+            //     function (settings, data, dataIndex) {
+            //         var lopid =$("#search_lopid").val();
+            //         var hocky =$("#search_hocky").val();
+            //         var namhoc =$("#search_namhoc").val();
+            //         var loaihocbong=$("#loaihocbong").val();
+            //         var slg =$("#slg").val();
+            //         var slk =$("#slk").val();
+            //         var dtb =$("#dtb").val();
+            //         var drl =$("#drl").val();
+            //         var ddtb = data[5]; // use data for the age column
+            //         var ddrl = data[6]; // use data for the age column
+            //         if (loaihocbong=="gioi") {
+            //             if(dtb > ddtb && drl>ddrl){
+            //                 return true
+            //             }
+            //         }
+            //         if (loaihocbong=="gioi") {
+            //             if(dtb > ddtb && drl>ddrl){
+            //                 return true
+            //             }
+            //         }
+            //         return false;
+            //
+            //     }
+            // );
+            // // Event listener to the two range filtering inputs to redraw on input
+            // // $('#search_lop').change(function () {
+            // //     $('#search_mh').val('').trigger('change');
+            // // });
+            // $('#search_mh').change(function () {
+            //     table.draw();
+            // });
         });
     </script>
 @stop
