@@ -18,11 +18,14 @@ class ScholarshipController extends Controller
         view()->share('hocbong',$hocbong);
         $student=Sinhvien::join('thongkes','sinhviens.id','=','thongkes.sinhvien_id')
             ->join('hockys','thongkes.thongke_hocky_id','=','hockys.id')
+            ->join('lops','sinhviens.lop_id','=','lops.id')
             ->select([
                 'sinhviens.id as idsv',
                 'masv',
                 'tensv',
                 'hosv',
+                'lop_id',
+                'tenlop',
                 'diemrl',
                 'hocbong',
                 'namhoc',

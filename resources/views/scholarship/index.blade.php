@@ -51,6 +51,7 @@
                 <th>STT</th>
                 <th>Mã Sinh Viên</th>
                 <th>Tên Sinh Viên</th>
+                <th>Lớp</th>
                 <th>Học Bổng</th>
                 <th>Năm Học</th>
                 <th>Học Kỳ</th>
@@ -65,6 +66,8 @@
                     <td>{!! ++$rownum !!}</td>
                     <td>{{$st->masv}}</td>
                     <td>{{$st->hosv.' '.$st->tensv}}</td>
+                    <td>
+                        {{$st->tenlop}}
                     <td>
                         @if($st->hocbong==0)
                             Giỏi
