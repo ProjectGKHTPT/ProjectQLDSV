@@ -1,5 +1,5 @@
 @extends('adminlte::page')
-@section('title','List-User')
+@section('title','Danh sách giảng viên')
 @section('content_header')
     <div class="row">
         {{--{!! Form:: !!}--}}
@@ -34,7 +34,7 @@
         </form>
         <div class="col-md-4">
             <ol class="breadcrumb" style="padding: 16px 0px 0px 150px;margin: 0;background-color: transparent;border-radius: 0;">
-                <li><a href="#"><i class="fa fa-user"></i> Người sử dụng</a></li>
+                <li><i class="fa fa-user"></i> Giảng viên</li>
                 <li class="active">Danh Sách</li>
             </ol>
         </div>
@@ -55,7 +55,7 @@
             <th>Mã giảng viên</th>
             <th>Tên giảng viên</th>
             <th>Ngày sinh</th>
-            <th>Gioitinh</th>
+            <th>Giới tính</th>
             <th>Học hàm</th>
             <th>Học vị</th>
             @can('admin')

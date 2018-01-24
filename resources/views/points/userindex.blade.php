@@ -78,7 +78,7 @@
             <th>Điểm Thường Xuyên</th>
             <th>Điểm Giữa Kỳ</th>
             <th>Điểm Cuối Kỳ</th>
-            <th>Điểm Trung Bình</th>
+            {{--<th>Điểm Trung Bình</th>--}}
         </tr>
         </thead>
         @foreach ($student as $st)
@@ -92,7 +92,7 @@
                 <th>{{$st->diemtx}}</th>
                 <th>{{$st->diemgk}}</th>
                 <th>{{$st->diemck}}</th>
-                <th>{{$st->diemtb}}</th>
+                {{--<th>{{$st->diemtb}}</th>--}}
             </tr>
         @endforeach
     </table>

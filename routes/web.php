@@ -54,8 +54,24 @@ Route::group(['middleware' => ['login']], function () {
     Route::group(['prefix' => 'subject'], function () {
         Route::get('/', ['as' => 'subject.index', 'uses' => 'SubjectController@index']);
         Route::get('data', ['as' => 'subject.data_json', 'uses' => 'SubjectController@datajson']);
+        //add user
+        Route::post('add',['as'=>'subject.addsubject','uses'=>'SubjectController@addsubject']);
+        Route::post('duplicate',['as'=>'subject.postDuplicate','uses'=>'SubjectController@postDuplicate']);
+        Route::post('edit/{id}', ['as' => 'subject.editsubject', 'uses' => 'SubjectController@postEdit']);
+        Route::get('detail/{id}', ['as' => 'subject.getDetail', 'uses' => 'SubjectController@detail']);
         //Delete item
         Route::get('destroy/{id}', ['as' => 'subject.getDestroy', 'uses' => 'SubjectController@destroy']);
+    });
+    Route::group(['prefix' => 'class'], function () {
+        Route::get('/', ['as' => 'class.index', 'uses' => 'ClassController@index']);
+        Route::get('data', ['as' => 'class.data_json', 'uses' => 'ClassController@datajson']);
+        //add user
+        Route::post('add',['as'=>'class.addclass','uses'=>'ClassController@addclass']);
+        Route::post('duplicate',['as'=>'class.postDuplicate','uses'=>'ClassController@postDuplicate']);
+        Route::post('edit/{id}', ['as' => 'class.editclass', 'uses' => 'ClassController@postEdit']);
+        Route::get('detail/{id}', ['as' => 'class.getDetail', 'uses' => 'ClassController@detail']);
+        //Delete item
+        Route::get('destroy/{id}', ['as' => 'class.getDestroy', 'uses' => 'ClassController@destroy']);
     });
     Route::group(['middleware' => ['can:admin']], function () {
         Route::group(['prefix' => 'point'], function () {
@@ -110,7 +126,14 @@ Route::group(['middleware' => ['login']], function () {
     });
     Route::group(['prefix' => 'studyresult'], function () {
         Route::get('/{lopid}/{namhoc}/{hocky}', ['uses' => 'StudyresultController@index']);
-//        Route::get('/{lopid}/{namhoc}/{hocky}/{dtb}/{drl}/{slg}', ['uses' => 'StudyresultController@hocbonggioi']);
+        //save hb
+        Route::post('save', ['as' => 'studyresult.diemrl', 'uses' => 'StudyresultController@savediemrl']);
+//        Route::get('data', ['as' => 'studyresult.data_json', 'uses' => 'StudyresultController@datajson']);
+    });
+    Route::group(['prefix' => 'scholarship'], function () {
+        Route::get('/{namhoc}/{hocky}/{hocbong}', ['as' => 'scholarship.index','uses' => 'ScholarshipController@index']);
+        //save hb
+        Route::post('save', ['as' => 'scholarship.hocbong', 'uses' => 'ScholarshipController@savehocbong']);
 //        Route::get('data', ['as' => 'studyresult.data_json', 'uses' => 'StudyresultController@datajson']);
     });
 });

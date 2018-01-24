@@ -96,7 +96,7 @@ class StudentController extends Controller
         return $datatables->make(true);
     }
     /**
-     * Add User
+     * Add student
      */
     public function addstudent(Request $request){
         $idmax= DB::table('sinhviens')->max('id');
@@ -127,22 +127,6 @@ class StudentController extends Controller
                 ['monhoc_id' => $pc->monhoc_id, 'sinhvien_id' => $id]
             );
         }
-//        foreach ($data['add_monhoc'] as $mh) {
-//            DB::table('diems')->insert(
-//                ['monhoc_id' => $mh, 'sinhvien_id' => $id]
-//            );
-//        }
-
-        //tau muốn lưu vào bảng điểm 2 giá trị 1,2,3 lúc nãy cho 3 hàng
-
-
-        //        $table->name=$data['name'];
-//        $table->email=$data['email'];
-//        $table->password=bcrypt($data['password']);
-//        $table->level=$data['level'];
-//        $table->picture='user.png';
-//        $table->save();
-//        return redirect('admin/lockscreen');
         try{
             return Response::json([
                 'error' => 0,

@@ -30,6 +30,7 @@ class PointController extends Controller
                 'diemtx',
                 'diemgk',
                 'diemck',
+                'diemthilai',
                 'mamon',
                 'sinhviens.id AS sv_id',
                 'diems.id AS diem_id',
@@ -164,6 +165,18 @@ class PointController extends Controller
                 'message' => 'Lưu thành công'
             ]);
         }
+        if($column=='diemthilai')
+        {
+            $diem = Diem::find($diem_id);
+            $diem->diemthilai=$diemso;
+            $diem->sinhvien_id=$sv_id;
+            $diem->monhoc_id=$monhoc_id;
+            $diem->save();
+            return Response::json([
+                'error' => 1,
+                'message' => 'Lưu thành công'
+            ]);
+        }
 
     }
     public function userindex(){
@@ -182,6 +195,7 @@ class PointController extends Controller
                 'diemtx',
                 'diemgk',
                 'diemck',
+                'diemthilai',
                 'mamon',
                 'sinhviens.id AS sv_id',
                 'diems.id AS diem_id',

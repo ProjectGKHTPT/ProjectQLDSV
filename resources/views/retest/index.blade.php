@@ -1,5 +1,5 @@
 @extends('adminlte::page')
-@section('title','List-User')
+@section('title','Danh sách thi lại')
 @section('content_header')
     <div class="row">
         {{--{!! Form:: !!}--}}

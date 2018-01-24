@@ -57,47 +57,7 @@ class RetestController extends Controller
                 'tenmon',
                 DB::raw('(10*diemcc+10*diemtx+30*diemgk+60*diemck)/100 AS diemtb'),
             ])
-            ->where(function ($q){
-                $q->where('diemcc', '>=', 5);
-                $q->where([
-                    ['diemcc', '>=', 3],
-                    ['diemtx', '>=', 3]
-                ]);
-                $q->where([
-                    ['diemcc', '>=', 3],
-                    ['diemgk', '>=', 3]
-                ]);
-                $q->where([
-                    ['diemcc', '>=', 3],
-                    ['diemck', '>=', 3]
-                ]);
-                $q->where([
-                    ['diemtx', '>=', 3],
-                    ['diemgk', '>=', 3],
-                ]);
-                $q->where([
-                    ['diemtx', '>=', 3],
-                    ['diemck', '>=', 3]
-                ]);
-                $q->where([
-                    ['diemgk', '>=', 3],
-                    ['diemck', '>=', 3]
-                ]);
-                $q->where([
-                    ['diemcc', '!=', 0],
-                    ['diemtx', '!=', 0],
-                    ['diemgk', '!=', 0],
-                    ['diemck', '!=', 0]
-                ]);
-                $q->whereNotNull('diemcc');
-                $q->whereNotNull('diemtx');
-                $q->whereNotNull('diemgk');
-                $q->whereNotNull('diemck');
-                $q->whereNotNull('diemck');
-                $q->whereNull('diemthilai');
-            })
-            ->where($where)
-            ->having('diemtb','<',5)
+            ->WhereRaw ('(10*diemcc+10*diemtx+30*diemgk+60*diemck)/100 < 5')
             ->get();
         $datatables = DataTables::of($diem)
             ->addColumn('hotensv', function ($data) {

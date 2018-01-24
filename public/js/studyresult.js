@@ -6,6 +6,7 @@ $(function () {
     // });
     $("#search_lopid").select2();
     $("#search_hocky").select2();
+    $("#search_hocbong").select2();
     $("#search_namhoc").select2({
         // minimumResultsForSearch: -1,
     });

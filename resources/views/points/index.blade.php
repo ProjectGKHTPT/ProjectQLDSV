@@ -1,5 +1,5 @@
 @extends('adminlte::page')
-@section('title','List-User')
+@section('title','Danh sách điểm')
 @section('content_header')
     <div class="row">
         {{--{!! Form:: !!}--}}
@@ -9,11 +9,12 @@
                     <select name="search_lop" id="search_lop" class="form-control">
                         @foreach(App\Lop::pluck('malop','malop')->all() as $key=>$val)
                         <option value="{{$key}}">{{$val}}</option>
+
                             @endforeach
                     </select>
                     <select name="search_mh" id="search_mh" class="form-control">
                             <option>--Chọn môn học--</option>
-                        @foreach(App\Monhoc::pluck('mamon','mamon')->all() as $key=>$val)
+                        @foreach(App\Monhoc::pluck('tenmon','mamon')->all() as $key=>$val)
                             <option value="{{$key}}">{{$val}}</option>
                         @endforeach
                     </select>
@@ -66,6 +67,7 @@
             <th>Điểm Thường Xuyên</th>
             <th>Điểm Giữa Kỳ</th>
             <th>Điểm Cuối Kỳ</th>
+            <th>Điểm Thi Lại</th>
         </tr>
         </thead>
             @foreach ($student as $st)
@@ -79,6 +81,7 @@
                     <th contenteditable="true" onBlur="saveToDatabase(this,'diemtx','{{$st->diem_id}}','{{$st->sv_id}}','{{$st->monhoc_id}}')">{{$st->diemtx}}</th>
                     <th contenteditable="true" onBlur="saveToDatabase(this,'diemgk','{{$st->diem_id}}','{{$st->sv_id}}','{{$st->monhoc_id}}')">{{$st->diemgk}}</th>
                     <th contenteditable="true" onBlur="saveToDatabase(this,'diemck','{{$st->diem_id}}','{{$st->sv_id}}','{{$st->monhoc_id}}')">{{$st->diemck}}</th>
+                    <th contenteditable="true" onBlur="saveToDatabase(this,'diemthilai','{{$st->diem_id}}','{{$st->sv_id}}','{{$st->monhoc_id}}')">{{$st->diemthilai}}</th>
                 </tr>
             @endforeach
     </table>
@@ -88,6 +91,11 @@
 @stop
 @section('js')
     <script src="{{ asset('js/point.js')}}"></script>
+    <script src="https://cdn.datatables.net/buttons/1.5.0/js/dataTables.buttons.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.32/pdfmake.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.32/vfs_fonts.js"></script>
+    <script src="//cdn.datatables.net/buttons/1.5.0/js/buttons.html5.min.js"></script>
     <script>
         var url="{{route('point.savediem')}}";
         $(document).ready(function() {
@@ -95,14 +103,45 @@
                 // "scrollY": "300px",
                 // "scrollCollapse": true,
                 // "scrollX": true,
+                dom: 'Bfrtip',
                 processing: true,
                 // serverSide: true,
                 autoWidth: true,
                 searching: true,
                 lengthMenu: [
-                    [5, 10, 25, 50, -1],
-                    [5, 10, 25, 50, 'Tất cả']
+                    [-1],
+                    ['Tất cả']
                 ],
+                buttons: [
+                    {
+                        extend: 'excel',
+                        text: 'Xuất excel',
+                        title: 'Danh sách Điểm sinh viên lớp'+$("#search_lop").val()+"môn học"+$("#search_mh").val(),
+                        filename: 'Danh sách Điểm sinh viên lớp'+$("#search_lop").val()+"môn học"+$("#search_mh").val(),
+                        header: true,
+                        footer: false,
+                        className: 'btn btn-warning btn-flat',
+                        exportOptions: {
+                            columns: [0, 1, 2, 3, 4, 5, 6,7,8,9]
+                        }
+                    },
+                    {
+                        extend: 'pdf',
+                        text: 'PDF',
+                        title: 'Danh sách Điểm sinh viên lớp'+$("#search_lop").val()+"môn học"+$("#search_mh").val(),
+                        filename: 'Danh sách Điểm sinh viên lớp'+$("#search_lop").val()+"môn học"+$("#search_mh").val(),
+                        header: true,
+                        footer: false,
+                        className: 'btn btn-danger btn-flat',
+                        exportOptions: {
+                            columns: [0, 1, 2, 3, 4, 5, 6,7,8,9]
+                        }
+                    },
+                ],
+                // initComplete : function () {
+                //     datatable.buttons().container()
+                //         .appendTo( $('.my-dt-buttons:eq(0)'));
+                // },
                 language: {
                     "lengthMenu": "Hiển thị _MENU_ bản ghi",
                     "zeroRecords": "Không có bản ghi nào được tìm thấy",
@@ -147,7 +186,7 @@
             });
         });
         function saveToDatabase(diem,column,diem_id,sv_id,monhoc_id) {
-            $(diem).css("background","#FFF url({{url('image/preloader.gif')}}) no-repeat right");
+            $(diem).css("background","#FFF url({{url('image/preloader.gif')}}) no-repeat left center");
             // $(diem).css("background"," url(https://media.giphy.com/media/EhTIih4rcMoSI/source.gif) no-repeat right");
             $.ajax({
                 url: url,

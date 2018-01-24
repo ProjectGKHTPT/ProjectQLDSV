@@ -1,5 +1,5 @@
 @extends('adminlte::page')
-@section('title','Danh sách môn học')
+@section('title','Danh sách lớp')
 @section('content_header')
     <div class="row">
         {{--{!! Form:: !!}--}}
@@ -34,7 +34,7 @@
         </form>
         <div class="col-md-4">
             <ol class="breadcrumb" style="padding: 16px 0px 0px 150px;margin: 0;background-color: transparent;border-radius: 0;">
-                <li><a href="#"><i class="fa fa-user"></i> Người sử dụng</a></li>
+                <li><i class="fa fa-user"></i> Lớp</li>
                 <li class="active">Danh Sách</li>
             </ol>
         </div>
@@ -44,7 +44,7 @@
     @can('admin')
     <!-- Main content -->
     <div class="btn-group pull-right">
-        <button type="button" class="btn bg-olive btn-flat margin btn_add_user" data-toggle="modal" data-target="#add_subject"><i class="fa fa-plus" aria-hidden="true"></i> Thêm</button>
+        <button type="button" class="btn bg-olive btn-flat margin btn_add_class" data-toggle="modal" data-target="#add_class"><i class="fa fa-plus" aria-hidden="true"></i> Thêm</button>
         {{--<a href="{{route('subject.getDestroy')}}">Xóa</a>--}}
     </div>
     @endcan
@@ -52,10 +52,9 @@
         <thead>
         <tr>
             <th>STT</th>
-            <th>Mã Môn học</th>
-            <th>Tên môn học</th>
-            <th>Số tín chỉ</th>
-            <th>Số tiết</th>
+            <th>Mã Lớp</th>
+            <th>Tên Lớp</th>
+            <th>Khoa</th>
             @can('admin')
             <th>Hành Động</th>
             @endcan
@@ -63,15 +62,15 @@
         </thead>
     </table>
     @can('admin')
-    @include('subjects.add')
-    @include('subjects.edit')
+    @include('class.add')
+    @include('class.edit')
     @endcan
 @stop
 @section('js')
     <!-- List user JS -->
-    <script src="{{ asset('js/subject.js')}}"></script>
+    <script src="{{ asset('js/class.js')}}"></script>
     <script>
-        var url="{{route('subject.data_json')}}";
+        var url="{{route('class.data_json')}}";
         $(function() {
             datatable = $('#custom-table').DataTable({
 //                processing: true,
@@ -84,13 +83,13 @@
                         "className": "text-center",
                         'width':'5%'
                     },
-                    @can('admin')
+                        @can('admin')
                     {
                         "targets": 4,
                         "className": "text-center",
                     }
                     @endcan
-                    ],
+                ],
 //            stateSave: true,
                 ajax: {
                     url: url,
@@ -105,10 +104,9 @@
                 },
                 columns: [
                     {data: 'rownum', name: 'rownum'},
-                    {data: 'mamon', name: 'mamon'},
-                    {data: 'tenmon', name: 'tenmon'},
-                    {data: 'sotinchi', name: 'sotinchi'},
-                    {data: 'sotiet', name: 'sotiet'},
+                    {data: 'malop', name: 'malop'},
+                    {data: 'tenlop', name: 'tenlop'},
+                    {data: 'tenkhoa', name: 'tenkhoa'},
                         @can('admin')
                     {data: 'action', name: 'action'},
                     @endcan
@@ -143,22 +141,13 @@
                 $('.btn-edit').on('click', function () {
                     var url = $(this).data('detail');
                     var editUrl = $(this).data('url');
-                    var lop_id = new Array();
-                    $('#frm_edit_subject').attr('action', editUrl);
+                    // var lop_id = new Array();
+                    $('#frm_edit_class').attr('action', editUrl);
                     $.get(url, function (resp) {
-                        resp.forEach(function(e) {
-                            $("#edit_mamon").val(e['mamon']);
-                            $("#edit_tenmon").val(e['tenmon']);
-                            $("#edit_sotiet").val(e['sotiet']);
-                            $("#edit_sotinchi").val(e['sotinchi']);
-                            $("#edit_hocky").val(e['hocky']);
-                            $("#edit_namhoc").val(e['namhoc']);
-                            $("#edit_giangvien_id").val(e['giangvien_id']).trigger('change');
-                            lop_id.push(e['lop_id']);
-                            $("#edit_mamon").attr('data-item-id',e['monhoc_id']);
-                        });
-                        console.log(resp);
-                        $("#edit_lop_id").select2().select2('val', [lop_id]);
+                        $("#edit_malop").val(resp.malop);
+                        $("#edit_tenlop").val(resp.tenlop);
+                        $("#edit_khoa_id").val(resp.khoa_id).trigger('change');
+                        $("#edit_malop").attr('data-item-id',resp.id);
                     }, 'json');
                 });
             });

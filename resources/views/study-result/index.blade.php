@@ -1,5 +1,5 @@
 @extends('adminlte::page')
-@section('title','List-User')
+@section('title','Danh sách kết quả')
 @section('content_header')
     <div class="row">
         {{--{!! Form:: !!}--}}
@@ -64,12 +64,14 @@
                 <th>STT</th>
                 <th>Mã Sinh Viên</th>
                 <th>Tên Sinh Viên</th>
+
                 @foreach ($monhoc as $mh)
                 <th>{{$mh->tenmon}}</th>
                 @endforeach
                 <th>Điểm TB</th>
                 <th>Điểm Rèn Luyện</th>
                 <th>Học lực</th>
+                <th>Xét HB</th>
             </tr>
         </thead>
         <tbody>
@@ -87,30 +89,40 @@
                     @foreach ($diem as $d)
                         @if($d->idsv==$st->idsv)
                         <td>
-                            @if(($d->diemcc<5 || ($d->diemtx<3 && $d->diemgk<3) ) && $d->diemthilai!=null)
+                            @if(($d->diemcc<5 || ($d->diemtx<3 && $d->diemgk<3) || $d->diemtx==0 ||$d->diemgk==0 ||$d->diemck==0))
                                 0
                                 @php
                                     $diemtb+=0;
                                     $tongstc+=$d->sotinchi;
                                 @endphp
-                            @elseif(($d->diemcc>5 && $d->diemtx>=3 || $d->diemgk>=3) && $d->diemthilai==null)
+                            @elseif(($d->diemcc>5 && $d->diemtx>=3 || $d->diemgk>=3)&&((10*$d->diemcc+10*$d->diemtx+30*$d->diemgk+50*$d->diemck)/100)>5)
                                 {{(10*$d->diemcc+10*$d->diemtx+30*$d->diemgk+50*$d->diemck)/100}}
                                 @php
                                     $diemtb+=((10*$d->diemcc+10*$d->diemtx+30*$d->diemgk+50*$d->diemck)/100)*$d->sotinchi;
                                     $tongstc+=$d->sotinchi;
                                 @endphp
-                            @else
+                            @elseif(($d->diemcc>5 && $d->diemtx>=3 || $d->diemgk>=3)&&
+                                    (((10*$d->diemcc+10*$d->diemtx+30*$d->diemgk+50*$d->diemck)/100)<5) &&
+                                    ((10*$d->diemcc+10*$d->diemtx+30*$d->diemgk+50*$d->diemthilai)/100)>5
+                                    )
                                 {{(10*$d->diemcc+10*$d->diemtx+30*$d->diemgk+50*$d->diemthilai)/100}}
                                 @php
                                     $diemtb+=((10*$d->diemcc+10*$d->diemtx+30*$d->diemgk+50*$d->diemthilai)/100)*$d->sotinchi;
+                                    $tongstc+=$d->sotinchi;
+                                @endphp
+                            @else
+                                0
+                                @php
+                                    $diemtb+=0;
                                     $tongstc+=$d->sotinchi;
                                 @endphp
                             @endif
                         </td>
                         @endif
                     @endforeach
-                    <td>{{$dhl=$diemtb/$tongstc}}</td>
-                    <td>{{$st->diemrl}}</td>
+                    <td>@php$dhl=$diemtb/$tongstc@endphp
+                        {{number_format($dhl=$diemtb/$tongstc,2)}}</td>
+                    <td @can('admin')contenteditable="true" onBlur="diemrl('{{$st->idsv}}',this)" @endcan>{{$st->diemrl}}</td>
                     <td>
                         @if($dhl>=8)
                             Giỏi
@@ -124,6 +136,11 @@
                             Yếu
                         @endif
                     </td>
+                    <td>
+                        <label><input type="radio" name="xethocbong_{{$st->masv}}" onchange="hocbong('{{$st->idsv}}',0)" value="0"/>Giỏi</label>
+                        <label><input type="radio" name="xethocbong_{{$st->masv}}" onchange="hocbong('{{$st->idsv}}',1)"value="1"/>Khá</label>
+                        <label><input type="radio" name="xethocbong_{{$st->masv}}" onchange="hocbong('{{$st->idsv}}',null)" checked="checked">Không</label>
+                    </td>
                 </tr>
                 @endforeach
         </tbody>
@@ -135,6 +152,49 @@
 @section('js')
     <script src="{{ asset('js/studyresult.js')}}"></script>
     <script>
+        function hocbong(svid,hb) {
+            var url="{{route('scholarship.hocbong')}}";
+            var hocky =$("#search_hocky").val();
+            console.log(svid);
+            $.ajax({
+                url: url,
+                type: "POST",
+                data: {svid: svid, hocbong: hb, hocky: hocky},
+                success: function(data){
+                    if (data.error==0){
+                        toastr.success(data.message, 'Thông Báo!', {closeButton: true});
+                    }else {
+                        toastr.error(data.message, 'Thông Báo!', {closeButton: true});
+                        $(hb).html(" ");
+                    }
+
+                },
+                error: function (data) {
+                }
+            });
+        };
+        @can('admin')
+        function diemrl(svid,diemrl) {
+            var url="{{route('studyresult.diemrl')}}";
+            var hocky =$("#search_hocky").val();
+            $.ajax({
+                url: url,
+                type: "POST",
+                data: {svid: svid, diemrl: diemrl.innerHTML, hocky: hocky},
+                success: function(data){
+                    if (data.error==0){
+                        toastr.success(data.message, 'Thông Báo!', {closeButton: true});
+                    }else {
+                        toastr.error(data.message, 'Thông Báo!', {closeButton: true});
+                        $(diemrl).html(" ");
+                    }
+
+                },
+                error: function (data) {
+                }
+            });
+        }
+        @endcan
         function btnstudyresult() {
             var lopid =$("#search_lopid").val();
             var hocky =$("#search_hocky").val();
