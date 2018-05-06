@@ -21,12 +21,12 @@ class UserController extends Controller
     public function postLogin(Request $request){
         if(Auth::attempt(['email'=>$request->email,'password'=>$request->password]))
         {
-            return Response::json([
+            return \response()->json([
                 'error' => 0,
                 'href' => route('index')
             ]);
         }else{
-            return Response::json([
+            return \response()->json([
                 'error' => 1,
                 'message' => 'Tài khoản mật khẩu không đúng. Vui lòng kiểm tra lại'
             ]);
