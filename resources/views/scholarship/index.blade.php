@@ -113,7 +113,7 @@
             var hocky =$("#search_hocky").val();
             var namhoc =$("#search_namhoc").val();
             var hocbong =$("#search_hocbong").val();
-            document.location.href = 'http://projectqldsv.dev/scholarship/'+namhoc+'/'+hocky+'/'+hocbong;
+            document.location.href = '/scholarship/'+namhoc+'/'+hocky+'/'+hocbong;
         }
         var url="{{route('point.savediem')}}";
         $(document).ready(function() {

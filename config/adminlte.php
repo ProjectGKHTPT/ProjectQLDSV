@@ -112,8 +112,51 @@ return [
         [
             'text' => 'Trang chủ',
             'url'  => '/',
-            'can'  => 'admin',
         ],
+        [
+            'text' => 'Môn h',
+            'url'  => 'subject',
+        ],
+        [
+            'text' => 'Lớp',
+            'url'  => 'class',
+        ],
+        [
+            'text' => 'Điểm',
+            'url'  => 'point',
+            'can'  => 'admin'
+        ],
+        [
+            'text' => 'Điểm',
+            'url'  => 'point-list',
+            'can'  => 'user'
+        ],
+        [
+            'text' => 'Sinh viên',
+            'url'  => 'student',
+        ],
+        [
+            'text' => 'Giảng viên',
+            'url'  => 'lecturer',
+        ],
+        [
+            'text' => 'Sinh viên học lại',
+            'url'  => 'studyagain',
+        ],
+        [
+            'text' => 'Sinh viên thi lại',
+            'url'  => 'retest',
+        ],
+        [
+            'text' => 'Sinh viên lên lớp',
+            'url'  => 'studyresult/1/2017-2018/1',
+        ],
+        [
+            'text' => 'Sinh viên đạt học bổng',
+            'url'  => 'scholarship/2017-2018/1/0',
+        ],
+
+
 //        [
 //            'text'        => 'Pages',
 //            'url'         => 'admin/pages',

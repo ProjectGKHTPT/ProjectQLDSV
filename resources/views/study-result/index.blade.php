@@ -199,7 +199,7 @@
             var lopid =$("#search_lopid").val();
             var hocky =$("#search_hocky").val();
             var namhoc =$("#search_namhoc").val();
-            document.location.href = 'http://projectqldsv.dev/studyresult/'+lopid+'/'+namhoc+'/'+hocky;
+            document.location.href = 'studyresult/'+lopid+'/'+namhoc+'/'+hocky;
         }
         // function xethocbong() {
         //     var lopid =$("#search_lopid").val();
