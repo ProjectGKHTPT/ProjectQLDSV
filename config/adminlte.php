@@ -30,9 +30,9 @@ return [
     |
     */
 
-    'logo' => '<b>Admin</b>LTE',
+    'logo' => '<b>Quản lý</b>SV',
 
-    'logo_mini' => '<b>A</b>LT',
+    'logo_mini' => '<b>QL</b>SV',
 
     /*
     |--------------------------------------------------------------------------
@@ -114,7 +114,7 @@ return [
             'url'  => '/',
         ],
         [
-            'text' => 'Môn h',
+            'text' => 'Môn hoc',
             'url'  => 'subject',
         ],
         [
