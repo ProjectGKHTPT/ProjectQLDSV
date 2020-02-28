@@ -97,6 +97,11 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.32/vfs_fonts.js"></script>
     <script src="//cdn.datatables.net/buttons/1.5.0/js/buttons.html5.min.js"></script>
     <script>
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
         var url="{{route('point.savediem')}}";
         $(document).ready(function() {
             var table = $("#custom-table").DataTable({
