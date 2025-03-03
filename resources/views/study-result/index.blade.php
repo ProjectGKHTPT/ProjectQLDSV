@@ -18,7 +18,7 @@
                         {{--</ul>--}}
                     {{--</div>--}}
                     <select name="search_lopid" id="search_lopid" class="form-control">
-                        @foreach(App\Lop::pluck('malop','id')->all() as $key=>$val)
+                        @foreach(App\Models\Lop::pluck('malop','id')->all() as $key=>$val)
                             <option value="{{$key}}"  @if($key==$lopid)selected @endif>{{$val}}</option>
                         @endforeach
                     </select>

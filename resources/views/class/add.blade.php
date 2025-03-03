@@ -37,7 +37,7 @@
                                     </span>
                                     <div class="form-line">
                                         <select class="selectpicker show-tick form-control" name="khoa_id" id="khoa_id" style="width: 100%;" required>
-                                            @foreach(App\Khoa::pluck('tenkhoa','id')->all() as $key=>$val)
+                                            @foreach(App\Models\Khoa::pluck('tenkhoa','id')->all() as $key=>$val)
                                                 <option value="{{$key}}">{{$val}}</option>
                                             @endforeach
                                         </select>

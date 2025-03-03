@@ -6,6 +6,6 @@ return [
      */
     'table' => [
         'class' => 'table',
-        'id'    => 'dataTableBuilder',
+        'id' => 'dataTableBuilder',
     ],
 ];

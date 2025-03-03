@@ -10,14 +10,14 @@ class Lop extends Model
 
     public function khoas()
     {
-        return $this->belongsTo('App\Khoa','khoa_id','id');
+        return $this->belongsTo(\App\Khoa::class,'khoa_id','id');
     }
     public function sinhviens()
     {
-        return $this->hasMany('App\Sinhvien','lop_id','id');
+        return $this->hasMany(\App\Sinhvien::class,'lop_id','id');
     }
     public function monhocs()
     {
-        return $this->belongsToMany('App\Monhoc','monhoc_lop','lop_id','monhoc_id');
+        return $this->belongsToMany(\App\Monhoc::class,'monhoc_lop','lop_id','monhoc_id');
     }
 }

@@ -11,7 +11,7 @@ class KhoasTableSeeder extends Seeder
      */
     public function run()
     {
-        \App\Khoa::insert([
+        \App\Models\Khoa::insert([
             ['makhoa' => 'CNTT', 'tenkhoa' => 'Công nghệ thông tin'],
             ['makhoa' => 'ĐHVT', 'tenkhoa' => 'Đại học viễn thông'],
         ]);

@@ -7,14 +7,14 @@
             <div class="col-md-8">
                 <div class="btn btn-flat fix-box" style="margin: 0;padding: 0 0 0 12px;">
                     <select name="search_lop" id="search_lop" class="form-control">
-                        @foreach(App\Lop::pluck('malop','malop')->all() as $key=>$val)
+                        @foreach(App\Models\Lop::pluck('malop','malop')->all() as $key=>$val)
                         <option value="{{$key}}">{{$val}}</option>
 
                             @endforeach
                     </select>
                     <select name="search_mh" id="search_mh" class="form-control">
                             <option>--Chọn môn học--</option>
-                        @foreach(App\Monhoc::pluck('tenmon','mamon')->all() as $key=>$val)
+                        @foreach(App\Models\Monhoc::pluck('tenmon','mamon')->all() as $key=>$val)
                             <option value="{{$key}}">{{$val}}</option>
                         @endforeach
                     </select>
@@ -52,7 +52,7 @@
     <!-- Main content -->
     {{--<div class="btn-group pull-right">--}}
         {{--<button type="button" class="btn bg-olive margin btn-flat btn_add_user" data-toggle="modal" data-target="#add_subject"><i class="fa fa-plus" aria-hidden="true"></i> Thêm</button>--}}
-        {{--{!! Form::select('mon_id', \App\Monhoc::pluck('tenmon','id')->all(), null, ['id'=>'mon_id', 'class'=>'form-control']) !!}--}}
+        {{--{!! Form::select('mon_id', \App\Models\Monhoc::pluck('tenmon','id')->all(), null, ['id'=>'mon_id', 'class'=>'form-control']) !!}--}}
         {{--<a href="{{route('subject.getDestroy')}}">Xóa</a>--}}
     {{--</div>--}}
     <table class="table table-bordered table-striped" id="custom-table">

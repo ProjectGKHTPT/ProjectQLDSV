@@ -39,8 +39,8 @@ return [
      * This is where you can register your custom dataTables builder.
      */
     'engines' => [
-        'eloquent'   => \Yajra\DataTables\EloquentDataTable::class,
-        'query'      => \Yajra\DataTables\QueryDataTable::class,
+        'eloquent' => \Yajra\DataTables\EloquentDataTable::class,
+        'query' => \Yajra\DataTables\QueryDataTable::class,
         'collection' => \Yajra\DataTables\CollectionDataTable::class,
     ],
 
@@ -50,10 +50,10 @@ return [
      * Note, only change this if you know what you are doing!
      */
     'builders' => [
-        //Illuminate\Database\Eloquent\Relations\Relation::class => 'eloquent',
-        //Illuminate\Database\Eloquent\Builder::class            => 'eloquent',
-        //Illuminate\Database\Query\Builder::class               => 'query',
-        //Illuminate\Support\Collection::class                   => 'collection',
+        // Illuminate\Database\Eloquent\Relations\Relation::class => 'eloquent',
+        // Illuminate\Database\Eloquent\Builder::class            => 'eloquent',
+        // Illuminate\Database\Query\Builder::class               => 'query',
+        // Illuminate\Support\Collection::class                   => 'collection',
     ],
 
     /*
@@ -108,7 +108,7 @@ return [
      * JsonResponse header and options config.
      */
     'json' => [
-        'header'  => [],
+        'header' => [],
         'options' => 0,
     ],
 

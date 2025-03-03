@@ -8,13 +8,13 @@
                 <div class="btn btn-flat fix-box" style="margin: 0;padding: 0 0 0 12px;">
                     <select name="search_lop" id="search_lop" class="form-control">
                         <option>--Chọn lớp--</option>
-                        @foreach(App\Lop::pluck('malop','malop')->all() as $key=>$val)
+                        @foreach(App\Models\Lop::pluck('malop','malop')->all() as $key=>$val)
                             <option value="{{$key}}">{{$val}}</option>
                         @endforeach
                     </select>
                     <select name="search_mh" id="search_mh" class="form-control">
                         <option>--Chọn môn học--</option>
-                        @foreach(App\Monhoc::pluck('mamon','mamon')->all() as $key=>$val)
+                        @foreach(App\Models\Monhoc::pluck('mamon','mamon')->all() as $key=>$val)
                             <option value="{{$key}}">{{$val}}</option>
                         @endforeach
                     </select>

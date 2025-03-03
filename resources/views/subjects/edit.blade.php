@@ -69,7 +69,7 @@
                                     </span>
                                     <div class="form-line">
                                         <select class="selectpicker show-tick form-control" name="edit_giangvien_id" id="edit_giangvien_id" style="width: 100%;" required>
-                                            @foreach(App\Giangvien::select('hogv','tengv','id')->get() as $val)
+                                            @foreach(App\Models\Giangvien::select('hogv','tengv','id')->get() as $val)
                                                 <option value="{{$val->id}}">{{$val->hogv." ".$val->tengv}}</option>
                                             @endforeach
                                         </select>

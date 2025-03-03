@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class CreateDiemsTable extends Migration
 {
@@ -15,7 +15,7 @@ class CreateDiemsTable extends Migration
     {
         Schema::create('diems', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('madiem',10)->unique();
+            $table->string('madiem', 10)->unique();
             $table->integer('diemcc');
             $table->integer('diemtx');
             $table->integer('diemgk');

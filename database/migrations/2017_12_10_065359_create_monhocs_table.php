@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class CreateMonhocsTable extends Migration
 {
@@ -15,7 +15,7 @@ class CreateMonhocsTable extends Migration
     {
         Schema::create('monhocs', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('mamon',10)->unique();
+            $table->string('mamon', 10)->unique();
             $table->string('tenmon')->comment('tên môn học');
             $table->string('tenbomon')->comment('tên bộ môn');
             $table->integer('sotinchi');
